@@ -1,0 +1,164 @@
+﻿{
+  "challenges": [
+    {
+      "id": "livingDead",
+      "name": "Night of the Living Dead",
+      "author": "Ruiner",
+      "preventPegMinigame": true,
+      "whitelistOrbs": [
+        "Morbidorb",
+        "Necorbmancer"
+      ],
+      "startingOrbs": [
+        "Morbidorb-Lvl1",
+        "Morbidorb-Lvl1",
+        "Morbidorb-Lvl1",
+        "Necorbmancer-Lvl1"
+      ],
+      "blacklistScenarios": [
+        "BrambleTree",
+        "OrbeliskMapData",
+        "Thunderstorm",
+        "Inferno",
+        "CrowClearing",
+        "OldBrickSlime",
+        "MirrorRemove",
+        "MinecartMapData"
+      ]
+    },
+    {
+      "id": "oneStone",
+      "name": "The Mightiest Stone",
+      "author": "Ruiner",
+      "startingOrbs": [
+        "Stoneorb-Lvl1"
+      ],
+      "startingRelics": [
+        "BASIC_STONE_BONUS_DAMAGE",
+        "BAL_ON_RELOAD",
+        "INCREASE_STRENGTH_SMALL",
+        "NORMAL_ATTACKS_OVERFLOW",
+        "NO_DISCARD"
+      ],
+      "blacklistScenarios": [
+        "BrambleTree",
+        "OrbeliskMapData",
+        "Thunderstorm",
+        "Inferno",
+        "CrowClearing",
+        "OldBrickSlime",
+        "MirrorRemove",
+        "MysteriousAltarOffer",
+        "MinecartMapData",
+        "PeglinEchoScenarioMapData"
+      ],
+      "blacklistRelics": [
+        "ADD_ORBS_AND_UPGRADE"
+      ],
+      "preventNewOrbs": true,
+      "preventOrbUpgrades": true,
+      "preventPegMinigame": true
+    },
+    {
+      "id": "upgradeDowngrade",
+      "name": "Up and Down",
+      "author": "Ruiner",
+      "preventPegMinigame": true,
+      "startingOrbs": [
+        "DebuffOrb-Lvl1",
+        "DebuffOrb-Lvl1",
+        "BuffOrb-Lvl1",
+        "BuffOrb-Lvl1"
+      ],
+      "whitelistOrbs": [
+        "debuff",
+        "buff"
+      ],
+      "blacklistScenarios": [
+        "BrambleTree",
+        "OrbeliskMapData",
+        "Thunderstorm",
+        "Inferno",
+        "CrowClearing",
+        "OldBrickSlime",
+        "MirrorRemove",
+        "MinecartMapData"
+      ]
+    },
+    {
+      "id": "bigNumbers",
+      "name": "Critical Numbers",
+      "author": "Ruiner",
+      "enemyHealthMultiplier": 15.0,
+      "preventPegMinigame": true,
+      "startingOrbs": [
+        "Allorbnothing-Lvl1",
+        "Allorbnothing-Lvl1",
+        "Allorbnothing-Lvl1",
+        "Critiball-Lvl1"
+      ],
+      "startingRelics": [
+        "CRITS_STACK",
+        "ADDITIONAL_CRIT1",
+        "ADDITIONAL_CRIT2",
+        "ADDITIONAL_REFRESH1",
+        "ADDITIONAL_REFRESH2",
+        "CRIT_ALSO_REFRESH",
+        "LOW_HEALTH_INCREASED_DAMAGE",
+        "CRIT_BONUS_DMG",
+        "REFRESH_ALSO_CRIT",
+        "ALL_IN_RELIC"
+      ],
+      "whitelistOrbs": [
+        "all_orb_nothing",
+        "critiball",
+        "icicle",
+        "dagger"
+      ]
+    },
+    {
+      "id": "bigNumbersII",
+      "name": "The Snake That Grows",
+      "author": "Ruiner",
+      "requiredChallenges": [
+        "bigNumbers"
+      ],
+      "enemyHealthMultiplier": 5.0,
+      "maxHealth": 250,
+      "preventNewOrbs": true,
+      "preventPegMinigame": true,
+      "startingOrbs": [
+        "Orboros-Lvl1",
+        "Orboros-Lvl1",
+        "Orboros-Lvl1",
+        "Orboros-Lvl1",
+        "Orboros-Lvl1"
+      ],
+      "startingRelics": [
+        "CRITS_STACK",
+        "ADDITIONAL_CRIT1",
+        "ADDITIONAL_CRIT2",
+        "SLOT_MULTIPLIERS",
+        "LOW_HEALTH_INCREASED_DAMAGE",
+        "ALL_ATTACKS_ECHO",
+        "NORMAL_ATTACKS_OVERFLOW"
+      ],
+      "blacklistScenarios": [
+        "BrambleTree",
+        "OrbeliskMapData",
+        "Thunderstorm",
+        "Inferno",
+        "CrowClearing",
+        "OldBrickSlime",
+        "MirrorRemove",
+        "MysteriousAltarOffer",
+        "MinecartMapData",
+        "PeglinEchoScenarioMapData",
+        "SlimyPathMapData"
+      ],
+      "blacklistRelics": [
+        "ADD_ORBS_AND_UPGRADE"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+﻿{
+  "challenges": [
+    {
+      "id": "aimless",
+      "name": "Unguided Path",
+      "author": "Ruiner",
+      "predictionBounces": 0,
+      "blacklistRelics": [
+        "LONGER_AIMER"
+      ],
+      "allowCruciball": true
+    },
+    {
+      "id": "aimlessII",
+      "name": "360 No-scope",
+      "requiredChallenges": [
+        "aimless"
+      ],
+      "author": "Ruiner",
+      "predictionBounces": 0,
+      "blacklistRelics": [
+        "LONGER_AIMER"
+      ],
+      "startingRelics": [
+        "CONFUSION_RELIC"
+      ],
+      "allowCruciball":  true
+    },
+    {
+      "id": "refreshless",
+      "name": "Refreshing Change",
+      "author": "Ruiner",
+      "startingRefreshes": -100,
+      "startingOrbs": [
+        "StoneOrb-Lvl1",
+        "StoneOrb-Lvl1",
+        "StoneOrb-Lvl1",
+        "RefreshOrb-Lvl1"
+      ],
+      "startingRelics": [
+        "REFRESH_BOARD_ON_RELOAD"
+      ],
+      "blacklistRelics": [
+        "SHUFFLE_REFRESH_PEG",
+        "ADDITIONAL_REFRESH2",
+        "CRIT_ALSO_REFRESH",
+        "ADDITIONAL_REFRESH1"
+      ],
+      "allowCruciball":  true
+    },
+    {
+      "id": "refreshlessII",
+      "name": "Necro Refresher",
+      "author": "Ruiner",
+      "requiredChallenges": [
+        "refreshless"
+      ],
+      "startingRefreshes": -100,
+      "startingOrbs": [
+        "StoneOrb-Lvl1",
+        "StoneOrb-Lvl1",
+        "StoneOrb-Lvl1",
+        "Necorbmancer-Lvl1"
+      ],
+      "startingRelics": [
+        "REFRESH_BOARD_ON_ENEMY_KILLED"
+      ],
+      "blacklistRelics": [
+        "SHUFFLE_REFRESH_PEG",
+        "ADDITIONAL_REFRESH2",
+        "CRIT_ALSO_REFRESH",
+        "ADDITIONAL_REFRESH1"
+      ],
+      "allowCruciball": true
+    },
+    {
+      "id": "shortcut",
+      "name": "Inconsequential Shortcut",
+      "author": "Coccolithophor#6083",
+      "startingAct": 2,
+      "allowCruciball": true
+    },
+    {
+      "id": "elitist",
+      "name": "Elitist",
+      "author": "Ruiner",
+      "battleToEliteConversionChance": 1.0,
+      "allowCruciball": true
+    }
+  ]
+}

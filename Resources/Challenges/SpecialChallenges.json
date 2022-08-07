@@ -1,0 +1,98 @@
+﻿{
+  "challenges": [
+    {
+      "id": "healthCrisis",
+      "name": "Health Crisis",
+      "author": "Ruiner",
+      "permanentDamage": true
+    },
+    {
+      "id": "ironBlood",
+      "name": "Iron Blood",
+      "author": "Ruiner",
+      "maxHealth": 1,
+      "enemyHealthMultiplier": 0.5,
+      "immuneScenarioDamage": true,
+      "riggedBombSelfDamage":  0,
+      "startingRelics": [
+        "FREE_RELOAD",
+        "REDUCE_LOST_HEALTH",
+        "PREVENT_FIRST_DAMAGE",
+        "NO_DAMAGE_ON_RELOAD",
+        "ADDITIONAL_ORB_RELIC_OPTIONS"
+      ],
+      "blacklistRelics": [
+        "MAX_HEALTH_SMALL",
+        "MAX_HEALTH_MEDIUM",
+        "MAX_HEALTH_LARGE",
+        "LOW_HEALTH_INCREASED_DAMAGE",
+        "HEAL_ON_PEG_HITS",
+        "ADDITIONAL_END_BATTLE_HEAL",
+        "DAMAGE_RETURN",
+        "ALL_BOMBS_RIGGED",
+        "DAMAGE_TARGETED_ON_HEAL",
+        "HEAL_ON_RELOAD"
+      ],
+      "blacklistScenarios": [
+        "HealingTreeScenario",
+        "PeglinChef",
+        "MinecartMapData"
+      ]
+    },
+    {
+      "id": "onlyOrbs",
+      "name": "Trophy Collector",
+      "author": "Ruiner",
+      "skipStartingRelic": true,
+      "whitelistRelics": [],
+      "blacklistScenarios": [
+        "Gambler",
+        "VampireScenarioMapData",
+        "PeglinChef"
+      ]
+    },
+    {
+      "id": "onlyRelics",
+      "name": "Relic Specialist",
+      "author": "Ruiner",
+      "preventNewOrbs": true,
+      "preventPegMinigame": true,
+      "blacklistScenarios": [
+        "BrambleTree",
+        "OrbeliskMapData",
+        "Thunderstorm",
+        "Inferno",
+        "CrowClearing",
+        "OldBrickSlime",
+        "MirrorRemove",
+        "DuplicationAltar",
+        "MysteriousAltarOffer",
+        "MinecartMapData"
+      ],
+      "blacklistRelics": [
+        "ADD_ORBS_AND_UPGRADE"
+      ]
+    },
+    {
+      "id": "onlyStartingDeck",
+      "name": "Purist",
+      "author": "Ruiner",
+      "requiredChallenges": [
+        "onlyOrbs",
+        "onlyRelics"
+      ],
+      "skipStartingRelic": true,
+      "preventNewOrbs": true,
+      "preventPegMinigame": true,
+      "whitelistScenarios": [],
+      "whitelistRelics": []
+    },
+    {
+      "id": "enragedEnemies",
+      "name": "Enraged Enemies",
+      "author": "Coccolithophor#6083",
+      "enrageThreshold": 10,
+      "enrageAmount": 1
+    }
+  ]
+}
