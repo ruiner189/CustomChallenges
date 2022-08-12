@@ -1,6 +1,15 @@
 # Custom Challenges
 This is a mod that adds a lot of new challenges to the game peglin! You can also easily add your own challenges and share them with others!
 
+# WARNING
+This mod is currently in the testing phase. There can be major changes before the first official release. Use at your own risk
+
+## Save File Warning
+This mod does manipulate save files. Please back-up your save file before using.
+
+## Required Mods
+ProLib [[Github](https://github.com/ruiner189/ProLib)] [[Thunderstore](https://peglin.thunderstore.io/package/Promethium/ProLib/)]
+
 ## How to play a custom challenge
 To start, go to the main menu and click "Challenges". A menu will pop-up and you can select the challenge you want to play. Each challenge will have it's own save file, and the color will change depending on if you have cleared it or not. Some challenges require others to be completed before showing up.
 
