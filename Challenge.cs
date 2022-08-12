@@ -42,6 +42,16 @@ namespace CustomChallenges
             if(challenge.TryGetEntry<DataObject>(Keys.LOCALIZATION_NAME, out DataObject localizedName)){
                 LoadLocalization($"Challenges/{challenge.Id}_name", localizedName);
             }
+
+            if(challenge.TryGetEntry<DataObject>(Keys.LOCALIZATION_DESCRIPTION, out DataObject localizedDescription))
+            {
+                LoadLocalization($"Challenges/{challenge.Id}_desc", localizedDescription);
+            }
+
+            if(challenge.TryGetEntry<String>(Keys.GOOGLESHEET_LOCALIZATION, out String url)){
+                LanguageLoader.Instance.LoadGoogleSheetTSVSource(url, Path.Combine("Challenges", challenge.Id));
+            }
+
             if (challenge.IsChallengeValid())
             {
                 Plugin.Log.LogDebug($"Loaded Challenge: {challenge.Id}");
@@ -54,19 +64,25 @@ namespace CustomChallenges
         {
             if(!ContainsKey(Keys.ID))
             {
-                Plugin.Log.LogError($"Challenge Invalid! Missing property {Keys.ID}");
+                Plugin.Log.LogError($"Challenge invalid! Missing property {Keys.ID}");
                 return false;
             }
 
             if(!ContainsKey(Keys.NAME))
             {
-                Plugin.Log.LogError($"Challenge Invalid! Missing property {Keys.NAME}");
+                Plugin.Log.LogError($"Challenge {Id} is invalid! Missing property {Keys.NAME}");
                 return false;
             }
 
-            if(AllChallenges.Find(challenge => challenge.Id == Id) != null)
+            if (!ContainsKey(Keys.DESCRIPTION))
             {
-                Plugin.Log.LogError($"Duplicate challenge Id detected! {Id}");
+                Plugin.Log.LogError($"Challenge {Id} is Invalid! Missing property {Keys.DESCRIPTION}");
+                return false;
+            }
+
+            if (AllChallenges.Find(challenge => challenge.Id == Id) != null)
+            {
+                Plugin.Log.LogError($"Duplicate challenge Id detected! Skipping {Id}");
                 return false;
             }
             return true;

@@ -3,7 +3,9 @@
     {
       "id": "aimless",
       "name": "Unguided Path",
+      "description": "Peglin forgot how to aim! Be careful on where you shoot!",
       "author": "Ruiner",
+      "useExternalLocalization": true,
       "predictionBounces": 0,
       "blacklistRelics": [
         "LONGER_AIMER"
@@ -13,6 +15,7 @@
     {
       "id": "aimlessII",
       "name": "360 No-scope",
+      "description": "Peglin can't aim and is dizzy. Watch your head! Those orbs are flying everywhere.",
       "requiredChallenges": [
         "aimless"
       ],
@@ -24,11 +27,12 @@
       "startingRelics": [
         "CONFUSION_RELIC"
       ],
-      "allowCruciball":  true
+      "allowCruciball": true
     },
     {
       "id": "refreshless",
       "name": "Refreshing Change",
+      "description": "Those dragons are at it again! This time they took all your refresh pegs. Good thing you have a refresh orb!",
       "author": "Ruiner",
       "startingRefreshes": -100,
       "startingOrbs": [
@@ -46,11 +50,12 @@
         "CRIT_ALSO_REFRESH",
         "ADDITIONAL_REFRESH1"
       ],
-      "allowCruciball":  true
+      "allowCruciball": true
     },
     {
       "id": "refreshlessII",
       "name": "Necro Refresher",
+      "description": "You lost your refresh pegs again. Channel the dead to refresh again.",
       "author": "Ruiner",
       "requiredChallenges": [
         "refreshless"
@@ -75,6 +80,7 @@
     },
     {
       "id": "shortcut",
+      "description": "You find a hidden tunnel at the entrance to the forest. It seems safe...",
       "name": "Inconsequential Shortcut",
       "author": "Coccolithophor#6083",
       "startingAct": 2,
@@ -83,6 +89,7 @@
     {
       "id": "elitist",
       "name": "Elitist",
+      "description": "It's raining elites! Run while you can!",
       "author": "Ruiner",
       "battleToEliteConversionChance": 1.0,
       "allowCruciball": true

@@ -17,6 +17,7 @@ using Cruciball;
 using ProLib.Loaders;
 using ProLib.Attributes;
 using BepInEx;
+using ProLib.Extensions;
 
 namespace CustomChallenges
 {
@@ -166,6 +167,8 @@ namespace CustomChallenges
             GameObject gameObject = GameObject.Find("PlayButton");
             Button button = gameObject.GetComponent<Button>();
             button.onClick.AddListener(() => SetToDefaultSave());
+            button.onClick.AddListener(() => ResetDescriptions());
+
         }
 
         private void SetToDefaultSave()
@@ -179,6 +182,40 @@ namespace CustomChallenges
 
             if (ChallengeButton.CustomButton != null)
                 ChallengeButton.CustomButton.SetActive(true);
+        }
+
+        private void ResetDescriptions()
+        {
+            GameObject panel = Camera.main.gameObject.FindChild(
+                "Character+CruciballCanvas",
+                "ClassDetailsPanel"
+                );
+            SetTitleText(panel.FindChild("ClassTitle"));
+            SetDescriptionText(panel.FindChild("ClassDescription"));
+            SetFooterText(panel.FindChild("MoreClassesSoon!"));
+        }
+
+        public void SetTitleText(GameObject title)
+        {
+            Localize localize = title.GetComponent<Localize>();
+            localize.SetTerm("Classes/peglin_class_title");
+            localize.enabled = true;
+        }
+
+        public void SetDescriptionText(GameObject description)
+        {
+            Localize localize = description.GetComponent<Localize>();
+            localize.SetTerm("Classes/peglin_class_desc");
+            localize.enabled = true;
+        }
+
+        public void SetFooterText(GameObject footer)
+        {
+            Localize localize = footer.GetComponent<Localize>();
+            TextMeshProUGUI text = footer.GetComponent<TextMeshProUGUI>();
+            localize.SetTerm("Classes/more_classes_coming_soon");
+            text.enabled = true;
+            localize.enabled = true;
         }
 
         private GameObject challengePopup;

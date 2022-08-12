@@ -9,6 +9,9 @@ namespace CustomChallenges
         public const String NAME = "name";
         public const String LOCALIZATION_NAME = "localizationName";
         public const String DESCRIPTION = "description";
+        public const String LOCALIZATION_DESCRIPTION = "localizationDescription";
+        public const String USE_EXTERNAL_LOCALIZATION = "useExternalLocalization";
+        public const String GOOGLESHEET_LOCALIZATION = "GoogleSheetLocalization";
         public const String AUTHOR = "author";
         public const String REQUIRED_MODS = "requiredMods";
         public const String BLACKLIST_ORBS = "blacklistOrbs";

@@ -8,6 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using ProLib.Extensions;
+using I2.Loc;
 
 namespace CustomChallenges
 {
@@ -24,6 +25,12 @@ namespace CustomChallenges
             _button = gameObject.GetComponent<Button>();
             _button.onClick.AddListener(() => OnClick());
             _text.text = _challenge.Name;
+
+            if ( _challenge.ContainsKey(Keys.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
+            {
+                Localize localize = _text.gameObject.AddComponent<Localize>();
+                localize.SetTerm($"Challenges/{_challenge.Id}_name");
+            }
 
             bool allowCruciball = _challenge.TryGetEntry<bool>(Keys.ALLOW_CRUCIBALL, out bool cruciball) && cruciball;
             bool maxCruciball = allowCruciball && ChallengeManager.IsChallengeMaxCruciball(_challenge);
@@ -69,6 +76,66 @@ namespace CustomChallenges
             if(CustomButton != null)
             {
                 CustomButton.SetActive(false);
+            }
+
+            GameObject panel = Camera.main.gameObject.FindChild(
+                "Character+CruciballCanvas",
+                "ClassDetailsPanel"
+                );
+
+            SetTitleText(panel.FindChild("ClassTitle"));
+            SetDescriptionText(panel.FindChild("ClassDescription"));
+            SetFooterText(panel.FindChild("MoreClassesSoon!"));
+        }
+
+        public void SetTitleText(GameObject title)
+        {
+            title.GetComponent<TextMeshProUGUI>().text = _challenge.Name;
+            Localize localize = title.GetComponent<Localize>();
+
+            if (_challenge.ContainsKey(Keys.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
+            {
+                localize.SetTerm($"Challenges/{_challenge.Id}_name");
+                localize.enabled = true;
+            }
+            else
+            {
+                localize.enabled = false;
+            }
+        }
+
+        public void SetDescriptionText(GameObject description)
+        {
+            description.GetComponent<TextMeshProUGUI>().text = _challenge.Description;
+            Localize localize = description.GetComponent<Localize>();
+
+
+            if (_challenge.ContainsKey(Keys.LOCALIZATION_DESCRIPTION) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
+            {
+                localize.SetTerm($"Challenges/{_challenge.Id}_desc");
+                localize.enabled = true;
+            }
+            else
+            {
+                localize.enabled = false;
+            }
+        }
+
+        public void SetFooterText(GameObject footer)
+        {
+            Localize localize = footer.GetComponent<Localize>();
+            TextMeshProUGUI text = footer.GetComponent<TextMeshProUGUI>();
+            if (_challenge.TryGetEntry<bool>(Keys.ALLOW_CRUCIBALL, out bool cruciball) && cruciball)
+            {
+                localize.SetTerm($"Menu/CruciballAllowed");
+                localize.enabled = true;
+                text.enabled = true;
+
+            }
+            else
+            {
+                localize.enabled = false;
+                text.enabled = false;
             }
         }
 

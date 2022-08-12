@@ -3,12 +3,14 @@
     {
       "id": "healthCrisis",
       "name": "Health Crisis",
+      "description": "You have fallen sick and the dragons have the only cure! Hurry and reach them, as you grow weaker with every hit",
       "author": "Ruiner",
       "permanentDamage": true
     },
     {
       "id": "ironBlood",
       "name": "Iron Blood",
+      "description": "The slightest touch could kill you. The journey will be long, but your condition allows you to survive even the most deadliest of scenarios.",
       "author": "Ruiner",
       "maxHealth": 1,
       "enemyHealthMultiplier": 0.5,
@@ -42,6 +44,7 @@
     {
       "id": "onlyOrbs",
       "name": "Trophy Collector",
+      "description": "How many trophies can you collect?",
       "author": "Ruiner",
       "skipStartingRelic": true,
       "whitelistRelics": [],
@@ -54,6 +57,7 @@
     {
       "id": "onlyRelics",
       "name": "Relic Specialist",
+      "description": "You can no longer get any orbs",
       "author": "Ruiner",
       "preventNewOrbs": true,
       "preventPegMinigame": true,
@@ -76,6 +80,7 @@
     {
       "id": "onlyStartingDeck",
       "name": "Purist",
+      "description": "You only have what you start with. How far can you go?",
       "author": "Ruiner",
       "requiredChallenges": [
         "onlyOrbs",
@@ -90,6 +95,7 @@
     {
       "id": "enragedEnemies",
       "name": "Enraged Enemies",
+      "description": "Enemies deal more damage the more you hit them.",
       "author": "Coccolithophor#6083",
       "enrageThreshold": 10,
       "enrageAmount": 1

@@ -4,6 +4,7 @@
       "id": "livingDead",
       "name": "Night of the Living Dead",
       "author": "Ruiner",
+      "description": "Dead Orbs = Dead Enemies",
       "preventPegMinigame": true,
       "whitelistOrbs": [
         "Morbidorb",
@@ -29,6 +30,7 @@
     {
       "id": "oneStone",
       "name": "The Mightiest Stone",
+      "description": "This is no ordinary stone- it is the mighties stone in creation. Passed from generation to generation, every Peglin wants this stone. Now it's your turn to use the stone to defeat your enemies! Show the world why this stone is so mighty.",
       "author": "Ruiner",
       "startingOrbs": [
         "Stoneorb-Lvl1"
@@ -50,7 +52,10 @@
         "MirrorRemove",
         "MysteriousAltarOffer",
         "MinecartMapData",
-        "PeglinEchoScenarioMapData"
+        "PeglinEchoScenarioMapData",
+        "HaglinScouting",
+        "MirrorDuplicate",
+        "DuplicationAltar"
       ],
       "blacklistRelics": [
         "ADD_ORBS_AND_UPGRADE"
@@ -62,6 +67,7 @@
     {
       "id": "upgradeDowngrade",
       "name": "Up and Down",
+      "description": "A lot of damage now or later? To upgrade or to cash in. Every Peglin needs to have these skills to survive.",
       "author": "Ruiner",
       "preventPegMinigame": true,
       "startingOrbs": [
@@ -88,6 +94,7 @@
     {
       "id": "bigNumbers",
       "name": "Critical Numbers",
+      "description": "Big Numbers = More Fun!",
       "author": "Ruiner",
       "enemyHealthMultiplier": 15.0,
       "preventPegMinigame": true,
@@ -119,6 +126,7 @@
     {
       "id": "bigNumbersII",
       "name": "The Snake That Grows",
+      "description": "Feed your snakey friend some yummy pegs and watch it grow!",
       "author": "Ruiner",
       "requiredChallenges": [
         "bigNumbers"
@@ -154,7 +162,8 @@
         "MysteriousAltarOffer",
         "MinecartMapData",
         "PeglinEchoScenarioMapData",
-        "SlimyPathMapData"
+        "SlimyPathMapData",
+        "HaglinScouting"
       ],
       "blacklistRelics": [
         "ADD_ORBS_AND_UPGRADE"
