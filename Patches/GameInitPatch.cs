@@ -1,4 +1,5 @@
-﻿using CustomChallenges.Extensions;
+﻿using Battle.Attacks;
+using CustomChallenges.Extensions;
 using HarmonyLib;
 using Relics;
 using System;

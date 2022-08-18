@@ -76,7 +76,8 @@ namespace CustomChallenges
             {
                 if (File.Exists(file))
                 {
-                    Challenge.LoadChallenges(File.ReadAllText(file));
+                    List<Challenge> challenges = Challenge.LoadChallenges(File.ReadAllText(file));
+                    Plugin.Log.LogMessage($"{file}: {challenges.Count}");
                 }
             }
 
@@ -234,6 +235,8 @@ namespace CustomChallenges
 
             GameObject containerPrefab = GameObject.Find("CreditsContainer");
             GameObject challengeContainer = Instantiate(containerPrefab, containerPrefab.transform.parent);
+            challengeContainer.name = "ChallengeContainer";
+
             challengePopup = challengeContainer.transform.GetChild(0).gameObject;
             challengePopup.name = "ChallengePopup";
 

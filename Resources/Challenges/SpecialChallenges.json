@@ -15,7 +15,7 @@
       "maxHealth": 1,
       "enemyHealthMultiplier": 0.5,
       "immuneScenarioDamage": true,
-      "riggedBombSelfDamage":  0,
+      "riggedBombSelfDamage": 0,
       "startingRelics": [
         "FREE_RELOAD",
         "REDUCE_LOST_HEALTH",
@@ -99,6 +99,129 @@
       "author": "Coccolithophor#6083",
       "enrageThreshold": 10,
       "enrageAmount": 1
+    },
+    {
+      "id": "timeAttackI",
+      "name": "Time Trial I",
+      "description": "You have 2 minutes and 30 seconds per battle. Can you survive?",
+      "author": "Ruiner",
+      "winConditions": {
+        "battleTimeLimit": 150
+      }
+    },
+    {
+      "id": "timeAttackII",
+      "requiredChallenges": [
+        "timeAttackI"
+      ],
+      "name": "Time Trial II",
+      "description": "You have 25 minutes for all battles. Good luck!",
+      "author": "Ruiner",
+      "winConditions": {
+        "globalTimeLimit": 1500
+      }
+    },
+    {
+      "id": "timeAttackIII",
+      "name": "Time Trial III",
+      "description": "You Have 2 minutes per battle and a total of 20 minutes for all battles. Only the speediest can complete this challenge",
+      "author": "Ruiner",
+      "requiredChallenges": [
+        "timeAttackI",
+        "timeAttackII"
+      ],
+      "winConditions": {
+        "globalTimeLimit": 1200,
+        "battleTimeLimit": 120
+      }
+    },
+    {
+      "id": "pacifist",
+      "name": "Pacifist",
+      "description": "You are not allowed to kill. Destroy the board to show your dedication.",
+      "author": "Ruiner",
+      "startingOrbs": [
+        "Ohmygorb-Lvl1",
+        "Ohmygorb-Lvl1",
+        "Ohmygorb-Lvl1",
+        "Ohmygorb-Lvl1"
+      ],
+      "whitelistOrbs": [
+        "destroy_peg_orb"
+      ],
+      "blacklistScenarios": [
+        "BrambleTree",
+        "OrbeliskMapData",
+        "Thunderstorm",
+        "Inferno",
+        "CrowClearing",
+        "OldBrickSlime",
+        "MirrorRemove",
+        "MinecartMapData",
+        "Gambler",
+        "VampireScenarioMapData"
+      ],
+      "blacklistRelics": [
+        "WALL_BOUNCES_COUNT",
+        "DAMAGE_ENEMIES_ON_RELOAD",
+        "NON_CRIT_BONUS_DMG",
+        "HEDGE_BETS",
+        "CRIT_BONUS_DMG",
+        "REDUCE_REFRESH",
+        "CRITS_STACK",
+        "CONFUSION_RELIC",
+        "STR_ON_RELOAD",
+        "ALL_ATTACKS_ECHO",
+        "DAMAGE_BONUS_PLANT_FLAT",
+        "UNPOPPABLE_PEGS",
+        "ALL_ORBS_BUFF",
+        "FLYING_HORIZONTAL_PIERCE",
+        "ADD_ORBS_AND_UPGRADE",
+        "ADJACENCY_BONUS",
+        "ADDITIONAL_BOMB_DAMAGE",
+        "BOUNCERS_COUNT",
+        "LIFESTEAL_PEG_HITS",
+        "LOW_HEALTH_GUARANTEED_CRIT",
+        "DAMAGE_TARGETED_PEG_HITS",
+        "LOW_HEALTH_INCREASED_DAMAGE",
+        "NORMAL_ATTACKS_OVERFLOW",
+        "INFLIGHT_DAMAGE",
+        "INCREASE_STRENGTH_SMALL",
+        "REFRESH_DAMAGES_PEG_COUNT",
+        "REFRESH_BOARD_ON_RELOAD",
+        "REFRESH_BUFF",
+        "REFRESH_BOARD_ON_ENEMY_KILLED",
+        "DAMAGE_RETURN",
+        "DAMAGE_BONUS_SLIME_FLAT",
+        "ALL_BOMBS_RIGGED",
+        "NO_DISCARD",
+        "ALL_IN_RELIC",
+        "BAL_ON_RELOAD",
+        "START_WITH_STR",
+        "POTION_PEGS_COUNT",
+        "BASIC_STONE_BONUS_DAMAGE",
+        "REDUCE_CRIT",
+        "DOUBLE_DAMAGE_HURT_ON_PEG",
+        "DAMAGE_TARGETED_ON_HEAL",
+        "SLOT_MULTIPLIERS"
+      ],
+      "blacklistBattles": [
+        "ForestSpiderEasy",
+        "ForestSpiderBattleData"
+      ],
+      "blacklistEliteBattles": [
+        "MinesInvisibleManMiniboss",
+        "TurnedManMapData",
+        "KnightMiniBoss"
+      ],
+      "preventPegMinigame": true,
+      "playerDamageMultiplier": 0.0,
+      "bombDamageMultiplier": 0.0,
+      "fullHealAtEndOfBattle": true,
+      "preventOrbUpgrades": true,
+      "winConditions": {
+        "remainingPegs": 0
+      }
     }
   ]
 }

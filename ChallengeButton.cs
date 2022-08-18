@@ -21,10 +21,18 @@ namespace CustomChallenges
 
         public void Start()
         {
+            if(_challenge == null)
+            {
+                Plugin.Log.LogError("Challenge Button created with no challenge! Deleting");
+                Destroy(this);
+                return;
+            }
+
             _text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
             _button = gameObject.GetComponent<Button>();
             _button.onClick.AddListener(() => OnClick());
             _text.text = _challenge.Name;
+
 
             if ( _challenge.ContainsKey(Keys.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
             {
@@ -86,6 +94,8 @@ namespace CustomChallenges
             SetTitleText(panel.FindChild("ClassTitle"));
             SetDescriptionText(panel.FindChild("ClassDescription"));
             SetFooterText(panel.FindChild("MoreClassesSoon!"));
+
+            WinConditionManager.Instance.LoadChallenge(_challenge);
         }
 
         public void SetTitleText(GameObject title)
@@ -106,9 +116,8 @@ namespace CustomChallenges
 
         public void SetDescriptionText(GameObject description)
         {
-            description.GetComponent<TextMeshProUGUI>().text = _challenge.Description;
+            description.GetComponent<TextMeshProUGUI>().text = _challenge.Description ?? "";
             Localize localize = description.GetComponent<Localize>();
-
 
             if (_challenge.ContainsKey(Keys.LOCALIZATION_DESCRIPTION) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
             {
@@ -130,7 +139,6 @@ namespace CustomChallenges
                 localize.SetTerm($"Menu/CruciballAllowed");
                 localize.enabled = true;
                 text.enabled = true;
-
             }
             else
             {

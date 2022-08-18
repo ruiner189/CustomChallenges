@@ -87,6 +87,18 @@
       "allowCruciball": true
     },
     {
+      "id": "shortcutII",
+      "description": "As you prepare to enter the forest, you notice a sealed hole in the ground. Do you dare enter?",
+      "requiredChallenges": [
+        "shortcut"
+      ],
+      "name": "Consequential Shortcut",
+      "author": "Coccolithophor#6083",
+      "startingAct": 3,
+      "enemyHealthMultiplier": 0.5,
+      "allowCruciball": true
+    },
+    {
       "id": "elitist",
       "name": "Elitist",
       "description": "It's raining elites! Run while you can!",

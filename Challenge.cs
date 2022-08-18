@@ -20,13 +20,13 @@ namespace CustomChallenges
         public String Description => GetEntry<String>(Keys.DESCRIPTION);
         public String Author => GetEntry<String>(Keys.AUTHOR);
 
-        private static Challenge From(JToken token)
+        private static new Challenge From(JToken token)
         {
             Challenge challenge = new Challenge();
             JObject obj = JObject.Load(token.CreateReader());
             foreach (JProperty property in obj.Properties())
             {
-                challenge._data.Add(property.Name, challenge.getValue(property.Value));
+                challenge._data.Add(property.Name, challenge.GetValue(property.Value));
             }
 
             if (challenge.TryGetEntryArray<String>(Keys.REQUIRED_MODS, out string[] requiredMods))
@@ -48,10 +48,6 @@ namespace CustomChallenges
                 LoadLocalization($"Challenges/{challenge.Id}_desc", localizedDescription);
             }
 
-            if(challenge.TryGetEntry<String>(Keys.GOOGLESHEET_LOCALIZATION, out String url)){
-                LanguageLoader.Instance.LoadGoogleSheetTSVSource(url, Path.Combine("Challenges", challenge.Id));
-            }
-
             if (challenge.IsChallengeValid())
             {
                 Plugin.Log.LogDebug($"Loaded Challenge: {challenge.Id}");
@@ -71,12 +67,6 @@ namespace CustomChallenges
             if(!ContainsKey(Keys.NAME))
             {
                 Plugin.Log.LogError($"Challenge {Id} is invalid! Missing property {Keys.NAME}");
-                return false;
-            }
-
-            if (!ContainsKey(Keys.DESCRIPTION))
-            {
-                Plugin.Log.LogError($"Challenge {Id} is Invalid! Missing property {Keys.DESCRIPTION}");
                 return false;
             }
 
@@ -132,39 +122,7 @@ namespace CustomChallenges
             return CruciballChallenge.From(this, null);
         }
 
-        private object getValue(JToken token)
-        {
-            switch (token.Type)
-            {
-                case JTokenType.Array:
-                    List<object> values = new List<object>();
-                    foreach (JToken child in token)
-                    {
-                        values.Add(getValue(child));
-                    }
-                    return values.ToArray();
 
-                case JTokenType.Object:
-                    JObject obj = JObject.Load(token.CreateReader());
-                    Dictionary<String, object> dict = new Dictionary<String, object>();
-                    foreach (JProperty property in obj.Properties())
-                    {
-                        dict.Add(property.Name, getValue(property.Value));
-                    }
-                    DataObject jsonObj = DataObject.From(dict);
-                    return jsonObj;
-                case JTokenType.String:
-                    return (string)token;
-                case JTokenType.Float:
-                    return (float)token;
-                case JTokenType.Integer:
-                    return (int)token;
-                case JTokenType.Boolean:
-                    return (bool)token;
-                default:
-                    return null;
-            }
-        }
 
         public static List<Challenge> LoadChallenges(Stream stream)
         {
@@ -190,8 +148,23 @@ namespace CustomChallenges
                             challenges.Add(data);
                         }
                     }
+
+                if(jObject.TryGetValue("localization", out JToken localizationToken))
+                {
+                    DataObject localization = DataObject.From(localizationToken);
+                    if(localization.TryGetEntry<String>(Keys.GOOGLESHEET_LOCALIZATION, out String url))
+                    {
+                        String path = null;
+                        if(localization.TryGetEntry<String>(Keys.LOCALIZATION_ID, out String localizationId)){
+                            path = Path.Combine("Challenges", localizationId);
+                        }
+                        LanguageLoader.Instance.LoadGoogleSheetTSVSource(url, Path.Combine("Challenges", path));
+                    }
+                }
             }
-            catch (Exception) {}
+            catch (Exception e) {
+                Plugin.Log.LogError(e.StackTrace);
+            }
 
             return challenges;
         }

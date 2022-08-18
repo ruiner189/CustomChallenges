@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -18,6 +19,52 @@ namespace CustomChallenges
             return obj;
         }
 
+        protected static DataObject From(JToken token)
+        {
+            DataObject data = new DataObject();
+            JObject obj = JObject.Load(token.CreateReader());
+            foreach (JProperty property in obj.Properties())
+            {
+                data._data.Add(property.Name, data.GetValue(property.Value));
+            }
+
+            return data;
+        }
+
+        protected object GetValue(JToken token)
+        {
+            switch (token.Type)
+            {
+                case JTokenType.Array:
+                    List<object> values = new List<object>();
+                    foreach (JToken child in token)
+                    {
+                        values.Add(GetValue(child));
+                    }
+                    return values.ToArray();
+
+                case JTokenType.Object:
+                    JObject obj = JObject.Load(token.CreateReader());
+                    Dictionary<String, object> dict = new Dictionary<String, object>();
+                    foreach (JProperty property in obj.Properties())
+                    {
+                        dict.Add(property.Name, GetValue(property.Value));
+                    }
+                    DataObject jsonObj = DataObject.From(dict);
+                    return jsonObj;
+                case JTokenType.String:
+                    return (string)token;
+                case JTokenType.Float:
+                    return (float)token;
+                case JTokenType.Integer:
+                    return (int)token;
+                case JTokenType.Boolean:
+                    return (bool)token;
+                default:
+                    return null;
+            }
+        }
+
         public  ReadOnlyDictionary<String, object> GetData()
         {
             return new ReadOnlyDictionary<string, object>(_data);
@@ -26,6 +73,23 @@ namespace CustomChallenges
         public object GetEntry(String key)
         {
             return _data.GetValueOrDefault(key);
+        }
+
+        public T TryGetNestedEntry<T>(params String[] keys)
+        {
+            DataObject currentObject = this;
+            for(int i = 0; i < keys.Length - 1; i++)
+            {
+                if (currentObject.TryGetEntry<DataObject>(keys[i], out DataObject nextObject) && nextObject != null)
+                    currentObject = nextObject;
+                else
+                    return default;
+            }
+            if(currentObject.TryGetEntry<T>(keys[keys.Length - 1], out T result))
+                return result;
+
+            return default;
+
         }
 
         public bool TryGetEntry(String key, out Object result)
@@ -41,7 +105,10 @@ namespace CustomChallenges
 
         public T GetEntry<T>(String key)
         {
-            return (T)GetEntry(key);
+            Object result = GetEntry(key);
+            if (result is T finalResult)
+                return finalResult;
+            return default;
         }
 
         public bool TryGetEntry<T>(String key, out T result)

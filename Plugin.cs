@@ -4,14 +4,18 @@ using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using Cruciball;
+using CustomChallenges.UI;
 using HarmonyLib;
+using I2.Loc;
 using ProLib.Attributes;
+using ProLib.Extensions;
 using ProLib.Loaders;
 using ProLib.Orbs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TMPro;
 using ToolBox.Serialization;
 using UnityEngine;
 
@@ -47,9 +51,26 @@ namespace CustomChallenges
             _harmony.PatchAll();
             ChallengeManager = new GameObject("Challenge Manager");
             ChallengeManager.AddComponent<ChallengeManager>();
+            ChallengeManager.AddComponent<WinConditionManager>();
             DontDestroyOnLoad(ChallengeManager);
             ChallengeManager.hideFlags = HideFlags.HideAndDontSave;
+
             LoadSoftDependencies();
+        }
+
+        public static TMP_FontAsset GetFont(int i, String path)
+        {
+            foreach (LanguageSourceData source in LocalizationManager.Sources)
+            {
+                foreach (UnityEngine.Object asset in source.Assets)
+                {
+                    if (path == asset.name && asset is TMP_FontAsset font)
+                    {
+                        return font;
+                    }
+                }
+            }
+            return null;
         }
 
         [Register]
