@@ -2,7 +2,7 @@
 
 namespace CustomChallenges
 {
-    public static class Keys
+    public static class Properties
     {
         // General
         public const String ID = "id";
@@ -43,6 +43,7 @@ namespace CustomChallenges
         public const String ALLOW_CRUCIBALL = "allowCruciball";
         public const String PLAYER_DAMAGE_MULTIPLIER = "playerDamageMultiplier";
         public const String BOMB_DAMAGE_MULTIPLIER = "bombDamageMultiplier";
+        public const String ORB_DESTROYS_PEG = "orbDestroysPeg";
 
         // WinConditions
         public const String WIN_CONDITIONS = "winConditions";
@@ -53,17 +54,21 @@ namespace CustomChallenges
         // Localization
         public const String LOCALIZATION_NAME = "localizationName";
         public const String LOCALIZATION_DESCRIPTION = "localizationDescription";
+        public const String LOCALIZATION_CRUCIBALL_DESCRIPTIONS = "localizationCruciballDescriptions";
         public const String USE_EXTERNAL_LOCALIZATION = "useExternalLocalization";
-        public const String GOOGLESHEET_LOCALIZATION = "GoogleSheetLocalization";
-        public const String LOCALIZATION_ID = "localizationId";
+        public const String SOURCE = "source";
+        public const String SOURCE_ID = "sourceId";
 
 
-        #region NOT IMPLEMENTED
         // Cruciball
         public const String CRUCIBALL = "cruciball";
+        public const String CRUCIBALL_DESCRIPTIONS = "cruciballDescriptions";
         public const String MAX_CRUCIBALL_LEVEL = "maxCruciballLevel";
         public const String OVERWRITE_CRUCIBALL_LEVELS = "overwriteCruciballLevels";
+        public const String CASCADING_LEVELS = "cascadingLevels";
         public const String LEVELS = "levels";
-        #endregion
+
+        // Weekly Challenges
+        public const String VERSION = "version";
     }
 }

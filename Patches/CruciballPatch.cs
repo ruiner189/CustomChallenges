@@ -11,7 +11,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(!challenge.TryGetEntry<bool>(Keys.ALLOW_CRUCIBALL, out bool allowCruciball) || !allowCruciball)
+                if(!challenge.TryGetEntry<bool>(Properties.ALLOW_CRUCIBALL, out bool allowCruciball) || !allowCruciball)
                 {
                     return false;
                 }

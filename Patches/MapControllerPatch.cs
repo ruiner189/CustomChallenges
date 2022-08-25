@@ -17,7 +17,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(challenge.TryGetEntryArray<String>(Keys.WHITELIST_SCENARIOS, out String[] whitelistScenarios))
+                if(challenge.TryGetEntryArray<String>(Properties.WHITELIST_SCENARIOS, out String[] whitelistScenarios))
                 {
                     __instance._potentialRandomScenarios.RemoveAll(scenario =>
                     {
@@ -25,7 +25,7 @@ namespace CustomChallenges.Patches
                             return false;
                         return true;
                     });
-                } else if (challenge.TryGetEntryArray<String>(Keys.BLACKLIST_SCENARIOS, out String[] blacklistScenarios))
+                } else if (challenge.TryGetEntryArray<String>(Properties.BLACKLIST_SCENARIOS, out String[] blacklistScenarios))
                 {
                     __instance._potentialRandomScenarios.RemoveAll(scenario =>
                     {
@@ -35,29 +35,29 @@ namespace CustomChallenges.Patches
                     });
                 }
 
-                if(challenge.TryGetEntryArray<String>(Keys.WHITELIST_BATTLES, out String[] whitelistBattles))
+                if(challenge.TryGetEntryArray<String>(Properties.WHITELIST_BATTLES, out String[] whitelistBattles))
                 {
                     RemoveBattles(__instance._potentialEasyBattles, whitelistBattles, false);
                     RemoveBattles(__instance._potentialRandomBattles, whitelistBattles, false);
                 }
-                else if (challenge.TryGetEntryArray<String>(Keys.BLACKLIST_BATTLES, out String[] blacklistBattles))
+                else if (challenge.TryGetEntryArray<String>(Properties.BLACKLIST_BATTLES, out String[] blacklistBattles))
                 {
                     RemoveBattles(__instance._potentialEasyBattles, blacklistBattles, true);
                     RemoveBattles(__instance._potentialRandomBattles, blacklistBattles, true);
                 }
 
-                if (challenge.TryGetEntryArray<String>(Keys.WHITELIST_ELITE_BATTLES, out String[] whitelistEliteBattles))
+                if (challenge.TryGetEntryArray<String>(Properties.WHITELIST_ELITE_BATTLES, out String[] whitelistEliteBattles))
                 {
                     RemoveBattles(__instance._potentialEliteBattles, whitelistEliteBattles, false);
                 }
-                else if (challenge.TryGetEntryArray<String>(Keys.BLACKLIST_ELITE_BATTLES, out String[] blacklistEliteBattles))
+                else if (challenge.TryGetEntryArray<String>(Properties.BLACKLIST_ELITE_BATTLES, out String[] blacklistEliteBattles))
                 {
                     RemoveBattles(__instance._potentialEliteBattles, blacklistEliteBattles, true);
                 }
 
                 if (__instance._loadMapData.NewGame)
                 {
-                    if(challenge.TryGetEntry<int>(Keys.MAX_HEALTH, out int maxHealth))
+                    if(challenge.TryGetEntry<int>(Properties.MAX_HEALTH, out int maxHealth))
                     {
                         int health = Math.Max(maxHealth, 1);
                         __instance._playerMaxHealth.Set(health);
@@ -86,7 +86,7 @@ namespace CustomChallenges.Patches
                     Challenge challenge = ChallengeManager.CurrentChallenge;
                     if (mapController != null)
                     {
-                        if (challenge.TryGetEntryArray<String>(Keys.WHITELIST_SCENARIOS, out String[] whitelistScenarios))
+                        if (challenge.TryGetEntryArray<String>(Properties.WHITELIST_SCENARIOS, out String[] whitelistScenarios))
                         {
                             mapController._potentialRandomScenarios.RemoveAll(scenario =>
                             {
@@ -95,7 +95,7 @@ namespace CustomChallenges.Patches
                                 return true;
                             });
                         }
-                        else if (challenge.TryGetEntryArray<String>(Keys.BLACKLIST_SCENARIOS, out String[] blacklistScenarios))
+                        else if (challenge.TryGetEntryArray<String>(Properties.BLACKLIST_SCENARIOS, out String[] blacklistScenarios))
                         {
                             mapController._potentialRandomScenarios.RemoveAll(scenario =>
                             {

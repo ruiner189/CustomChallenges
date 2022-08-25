@@ -12,7 +12,7 @@ namespace CustomChallenges.Patches
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
 
-                if(challenge.TryGetEntry<int>(Keys.PREDICTION_BOUNCES, out int bounces))
+                if(challenge.TryGetEntry<int>(Properties.PREDICTION_BOUNCES, out int bounces))
                 {
                     if (relicManager.RelicEffectActive(RelicEffect.LONGER_AIMER)) bounces++;
 

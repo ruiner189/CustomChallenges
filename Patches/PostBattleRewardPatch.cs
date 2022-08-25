@@ -13,8 +13,8 @@ namespace CustomChallenges.Patches
             {
                 __instance._rewiredEventSystem = GameObject.FindGameObjectWithTag("InputSystem").GetComponent<RewiredEventSystem>();
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                bool canGetNewOrb = !challenge.TryGetEntry<bool>(Keys.PREVENT_NEW_ORBS, out bool preventOrb) || !preventOrb;
-                bool canUpgradeOrb = !challenge.TryGetEntry<bool>(Keys.PREVENT_ORB_UPGRADES, out bool upgradeOrb) || !upgradeOrb;
+                bool canGetNewOrb = !challenge.TryGetEntry<bool>(Properties.PREVENT_NEW_ORBS, out bool preventOrb) || !preventOrb;
+                bool canUpgradeOrb = !challenge.TryGetEntry<bool>(Properties.PREVENT_ORB_UPGRADES, out bool upgradeOrb) || !upgradeOrb;
 
                 if (canGetNewOrb && canUpgradeOrb) 
                     return true;

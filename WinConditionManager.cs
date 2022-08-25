@@ -118,17 +118,17 @@ namespace CustomChallenges
 
             if (challenge != null)
             {
-                if (challenge.TryGetEntry<DataObject>(Keys.WIN_CONDITIONS, out DataObject data))
+                if (challenge.TryGetEntry<DataObject>(Properties.WIN_CONDITIONS, out DataObject data))
                 {
                     _winData = data;
 
-                    if (_winData.TryGetEntry<int>(Keys.GLOBAL_TIME_LIMIT, out int globalTimeLimit))
+                    if (_winData.TryGetEntry<int>(Properties.GLOBAL_TIME_LIMIT, out int globalTimeLimit))
                         _globalTimeLimit = globalTimeLimit;
 
-                    if (_winData.TryGetEntry<int>(Keys.BATTLE_TIME_LIMIT, out int battleTimeLimit))
+                    if (_winData.TryGetEntry<int>(Properties.BATTLE_TIME_LIMIT, out int battleTimeLimit))
                         _battleTimeLimit = battleTimeLimit;
 
-                    if(_winData.TryGetEntry<int>(Keys.REMAINING_PEGS, out int pegs))
+                    if(_winData.TryGetEntry<int>(Properties.REMAINING_PEGS, out int pegs))
                     {
                         _remainingPegs = pegs;
                     }

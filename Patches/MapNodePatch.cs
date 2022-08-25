@@ -21,7 +21,7 @@ namespace CustomChallenges.Patches
                 {
                     Challenge challenge = ChallengeManager.CurrentChallenge;
                     bool roomTypeChanged = false;
-                    if(__instance.RoomType == RoomType.BATTLE && challenge.TryGetEntry<float>(Keys.BATTLE_TO_ELITE_CONVERSION_CHANCE, out float conversionChance))
+                    if(__instance.RoomType == RoomType.BATTLE && challenge.TryGetEntry<float>(Properties.BATTLE_TO_ELITE_CONVERSION_CHANCE, out float conversionChance))
                     {
                         if(UnityEngine.Random.value < conversionChance && __instance.canBeMiniboss)
                         { 
@@ -29,7 +29,7 @@ namespace CustomChallenges.Patches
                             roomTypeChanged = true;
                         }
                     }
-                    else if(__instance.RoomType == RoomType.PEG_MINIGAME && challenge.TryGetEntry<bool>(Keys.PREVENT_PEG_MINIGAME, out bool preventPegMinigame) && preventPegMinigame)
+                    else if(__instance.RoomType == RoomType.PEG_MINIGAME && challenge.TryGetEntry<bool>(Properties.PREVENT_PEG_MINIGAME, out bool preventPegMinigame) && preventPegMinigame)
                     {
                         __instance.RoomType = RoomType.SCENARIO;
                         roomTypeChanged = true;

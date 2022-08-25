@@ -42,20 +42,14 @@
         "NORMAL_ATTACKS_OVERFLOW",
         "NO_DISCARD"
       ],
-      "blacklistScenarios": [
-        "BrambleTree",
-        "OrbeliskMapData",
-        "Thunderstorm",
-        "Inferno",
-        "CrowClearing",
-        "OldBrickSlime",
-        "MirrorRemove",
-        "MysteriousAltarOffer",
-        "MinecartMapData",
-        "PeglinEchoScenarioMapData",
-        "HaglinScouting",
-        "MirrorDuplicate",
-        "DuplicationAltar"
+      "whitelistScenarios": [
+        "WaterfallMapData",
+        "Gambler",
+        "HealingTreeScenario",
+        "PeglinChef",
+        "VampireScenarioMapData",
+        "SecretTunnelMapData",
+        "ForestPortalMapData"
       ],
       "blacklistRelics": [
         "ADD_ORBS_AND_UPGRADE"

@@ -12,7 +12,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(challenge.TryGetEntry<float>(Keys.ENEMY_HEALTH_MULTIPLIER, out float healthMultiplier))
+                if(challenge.TryGetEntry<float>(Properties.ENEMY_HEALTH_MULTIPLIER, out float healthMultiplier))
                 {
                     __instance._maxHealth = Mathf.Max(Mathf.Round(__instance._maxHealth * healthMultiplier), 1);
                     __instance.CurrentHealth = __instance._maxHealth;

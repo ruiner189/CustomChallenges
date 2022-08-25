@@ -15,7 +15,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(challenge.TryGetEntry<bool>(Keys.FULL_HEAL_AT_END_OF_BATTLE, out bool shouldHeal) && shouldHeal)
+                if(challenge.TryGetEntry<bool>(Properties.FULL_HEAL_AT_END_OF_BATTLE, out bool shouldHeal) && shouldHeal)
                 {
                     __instance._playerHealthController.HealToFull();
                 }

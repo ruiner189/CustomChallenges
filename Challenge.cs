@@ -12,67 +12,108 @@ namespace CustomChallenges
     {
         public static readonly List<Challenge> AllChallenges = new List<Challenge>();
 
-        public String Id => GetEntry<String>(Keys.ID);
-        public String Name => GetEntry<String>(Keys.NAME);
-        public bool IsNameLocalized => ContainsKey(Keys.LOCALIZATION_NAME);
+        public readonly String Id;
+        public String Name => GetEntry<String>(Properties.NAME);
+        public bool IsNameLocalized => ContainsKey(Properties.LOCALIZATION_NAME);
 
         // CURRENTLY NOT IMPLEMENTED
-        public String Description => GetEntry<String>(Keys.DESCRIPTION);
-        public String Author => GetEntry<String>(Keys.AUTHOR);
+        public String Description => GetEntry<String>(Properties.DESCRIPTION);
+        public String Author => GetEntry<String>(Properties.AUTHOR);
 
         private static new Challenge From(JToken token)
         {
-            Challenge challenge = new Challenge();
-            JObject obj = JObject.Load(token.CreateReader());
+            return From(JObject.Load(token.CreateReader()));
+        }
+
+        private static Challenge From(JObject obj, bool include = true)
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
             foreach (JProperty property in obj.Properties())
             {
-                challenge._data.Add(property.Name, challenge.GetValue(property.Value));
+                data.Add(property.Name, GetValue(property.Value));
             }
 
-            if (challenge.TryGetEntryArray<String>(Keys.REQUIRED_MODS, out string[] requiredMods))
-                foreach (String mod in requiredMods)
-                {
-                    if (!ChallengeManager.LoadedMods.Contains(mod))
+            if (data.TryGetValue(Properties.ID, out object id) && id is string idString)
+            {
+                Challenge challenge = new Challenge(idString, data);
+                if (challenge.TryGetEntryArray<String>(Properties.REQUIRED_MODS, out string[] requiredMods))
+                    foreach (String mod in requiredMods)
                     {
-                        Plugin.Log.LogMessage($"{challenge.Name} skipped due to missing the mod {mod}");
-                        return null;
+                        if (!ChallengeManager.LoadedMods.Contains(mod))
+                        {
+                            Plugin.Log.LogMessage($"{challenge.Name} skipped due to missing the mod {mod}");
+                            return null;
+                        }
                     }
+
+                if (challenge.TryGetEntry<DataObject>(Properties.LOCALIZATION_NAME, out DataObject localizedName))
+                {
+                    LoadLocalization($"Challenges/{challenge.Id}_name", localizedName);
                 }
 
-            if(challenge.TryGetEntry<DataObject>(Keys.LOCALIZATION_NAME, out DataObject localizedName)){
-                LoadLocalization($"Challenges/{challenge.Id}_name", localizedName);
+                if (challenge.TryGetEntry<DataObject>(Properties.LOCALIZATION_DESCRIPTION, out DataObject localizedDescription))
+                {
+                    LoadLocalization($"Challenges/{challenge.Id}_desc", localizedDescription);
+                }
+
+                if (include && challenge.IsChallengeValid())
+                {
+                    Plugin.Log.LogDebug($"Loaded Challenge: {challenge.Id}");
+                    AllChallenges.Add(challenge);
+                }
+                return challenge;
             }
 
-            if(challenge.TryGetEntry<DataObject>(Keys.LOCALIZATION_DESCRIPTION, out DataObject localizedDescription))
-            {
-                LoadLocalization($"Challenges/{challenge.Id}_desc", localizedDescription);
-            }
-
-            if (challenge.IsChallengeValid())
-            {
-                Plugin.Log.LogDebug($"Loaded Challenge: {challenge.Id}");
-                AllChallenges.Add(challenge);
-            }
-            return challenge;
+            return null;
         }
 
         private bool IsChallengeValid()
         {
-            if(!ContainsKey(Keys.ID))
+            if(!ContainsKey(Properties.ID))
             {
-                Plugin.Log.LogError($"Challenge invalid! Missing property {Keys.ID}");
+                Plugin.Log.LogError($"Challenge invalid! Missing property {Properties.ID}");
                 return false;
             }
 
-            if(!ContainsKey(Keys.NAME))
+            if(!ContainsKey(Properties.NAME))
             {
-                Plugin.Log.LogError($"Challenge {Id} is invalid! Missing property {Keys.NAME}");
+                Plugin.Log.LogError($"Challenge {Id} is invalid! Missing property {Properties.NAME}");
                 return false;
             }
 
             if (AllChallenges.Find(challenge => challenge.Id == Id) != null)
             {
                 Plugin.Log.LogError($"Duplicate challenge Id detected! Skipping {Id}");
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsCorrectVersion()
+        {
+            if(TryGetEntry<String>(Properties.VERSION, out String version))
+            {
+                if (version == Plugin.Version) return true;
+                String[] challengeSplit = version.Split('.');
+                int challengeMajor = int.Parse(challengeSplit[0]);
+                int challengeMinor = int.Parse(challengeSplit[1]);
+                int challengeIteration = int.Parse(challengeSplit[2]);
+
+                String[] pluginSplit = Plugin.Version.Split('.');
+                int pluginMajor = int.Parse(pluginSplit[0]);
+                int pluginMinor = int.Parse(pluginSplit[1]);
+                int pluginIteration = int.Parse(pluginSplit[2]);
+
+                if (pluginMajor > challengeMajor) return true;
+                else if (pluginMajor == challengeMajor)
+                {
+                    if (pluginMinor > challengeMinor) return true;
+                    else if (pluginMinor == challengeMinor)
+                    {
+                        if (pluginIteration >= challengeIteration) return true;
+                    }
+                }
+
                 return false;
             }
             return true;
@@ -105,24 +146,13 @@ namespace CustomChallenges
             return AllChallenges.OrderBy(challenge => challenge.Id).ToList();
         }
 
-        protected Challenge() {}
-
-        // CURRENTLY NOT IMPLEMENTED
-        public CruciballChallenge GetCruciballChallenge(int cruciballLevel)
-        {
-            if(TryGetEntry<DataObject>(Keys.CRUCIBALL, out DataObject cruciball))
-                if(cruciball.TryGetEntry<DataObject>(Keys.LEVELS, out DataObject cruciballLevels))
-                    for(; ; cruciballLevel--)
-                    {
-                        if(cruciballLevels.TryGetEntry<DataObject>(cruciballLevel.ToString(), out DataObject level))
-                        {
-                            return CruciballChallenge.From(this, cruciball, level);
-                        }
-                    }
-            return CruciballChallenge.From(this, null);
+        protected Challenge(String id, Dictionary<string, object> data) {
+            Id = id;
+            foreach(KeyValuePair<string,object> pair in data)
+            {
+                _data.Add(pair.Key, pair.Value);
+            }
         }
-
-
 
         public static List<Challenge> LoadChallenges(Stream stream)
         {
@@ -152,10 +182,10 @@ namespace CustomChallenges
                 if(jObject.TryGetValue("localization", out JToken localizationToken))
                 {
                     DataObject localization = DataObject.From(localizationToken);
-                    if(localization.TryGetEntry<String>(Keys.GOOGLESHEET_LOCALIZATION, out String url))
+                    if(localization.TryGetEntry<String>(Properties.SOURCE, out String url))
                     {
                         String path = null;
-                        if(localization.TryGetEntry<String>(Keys.LOCALIZATION_ID, out String localizationId)){
+                        if(localization.TryGetEntry<String>(Properties.SOURCE_ID, out String localizationId)){
                             path = Path.Combine("Challenges", localizationId);
                         }
                         LanguageLoader.Instance.LoadGoogleSheetTSVSource(url, Path.Combine("Challenges", path));
@@ -167,6 +197,52 @@ namespace CustomChallenges
             }
 
             return challenges;
+        }
+
+        public static Challenge LoadWeeklyChallenge(String json)
+        {
+            try
+            {
+                JObject jObject = JObject.Parse(json);
+                Challenge challenge = From(jObject, false);
+                return challenge;
+            }
+            catch (Exception e)
+            {
+                Plugin.Log.LogError(e.StackTrace);
+            }
+            return null;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is Challenge challenge)
+            {
+                if (Id == challenge.Id) return true;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        public static bool operator ==(Challenge challengeA, Challenge challengeB)
+        {
+            // Pointer check
+            if (ReferenceEquals(challengeA, challengeB)) return true;
+
+            // Null checks
+            if (challengeA is null) return false;
+            if (challengeB is null) return false;
+
+            return challengeA.Equals(challengeB);
+        }
+
+        public static bool operator !=(Challenge challengeA, Challenge challengeB)
+        {
+            return !(challengeA == challengeB);
         }
     }
 }

@@ -18,6 +18,8 @@ using ProLib.Loaders;
 using ProLib.Attributes;
 using BepInEx;
 using ProLib.Extensions;
+using UnityEngine.Networking;
+using System.Collections;
 
 namespace CustomChallenges
 {
@@ -26,11 +28,16 @@ namespace CustomChallenges
     {
         public static ChallengeManager Instance;
         public static Challenge CurrentChallenge;
+        public static Challenge WeeklyChallenge;
         public static bool ChallengeActive => CurrentChallenge != null;
 
         public static readonly List<string> LoadedMods = new List<string>();
 
         private static JObject _challengeVictoryData;
+
+        private int _currentCruciballLevel;
+        public static int CurrentCruciballLevel => Instance._currentCruciballLevel;
+
 
         public void Awake()
         {
@@ -41,6 +48,7 @@ namespace CustomChallenges
         public void Start()
         {
             GetActiveMods();
+            StartCoroutine(LoadWeeklyChallenge());
             LoadChallengeVictoryData();
             LoadAllPluginChallenges();
             LoadAllLocalChallenges();
@@ -77,7 +85,6 @@ namespace CustomChallenges
                 if (File.Exists(file))
                 {
                     List<Challenge> challenges = Challenge.LoadChallenges(File.ReadAllText(file));
-                    Plugin.Log.LogMessage($"{file}: {challenges.Count}");
                 }
             }
 
@@ -87,10 +94,78 @@ namespace CustomChallenges
             {
                 if (!file.EndsWith("manifest.json") && File.Exists(file))
                 {
-                    Plugin.Log.LogMessage(file);
                     Challenge.LoadChallenges(File.ReadAllText(file));
                 }
             }
+        }
+
+        private IEnumerator LoadWeeklyChallenge()
+        {
+            String url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT8lGnrC2VndLG58lMxGqJBiOcBkGtW2ldTdfLTsg0vHpT_o0Wddr68PIJxUqKeH7ehF9rMrT4WWVmq/pub?gid=1598225879&single=true&output=tsv";
+            String local = GetLocalWeeklyChallenge();
+
+            if (local != null) WeeklyChallenge = Challenge.LoadWeeklyChallenge(local);
+
+            UnityWebRequest www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Plugin.Log.LogWarning($"Could not fetch weekly challenge.");
+                www.Dispose();
+                yield break;
+            }
+
+            String online = www.downloadHandler.text;
+            www.Dispose();
+
+            if (local != online && online != null)
+            {
+                Challenge newWeekly = Challenge.LoadWeeklyChallenge(online);
+                if(newWeekly != null)
+                {
+                    if (!newWeekly.IsCorrectVersion())
+                    {
+                        Plugin.Log.LogWarning("New weekly challenge uses a new version of the mod! Please update to play it.");
+                        yield break;
+                    }
+                    Plugin.Log.LogInfo("Weekly Challenge has been updated!");
+                    SaveWeeklyChallenge(online);
+                    Challenge old = WeeklyChallenge;
+                    WeeklyChallenge = newWeekly;
+                    WeeklyChallengeButton?.SetChallengeData(WeeklyChallenge);
+                    WeeklyChallengeButton?.gameObject.SetActive(true);
+                    if (old != WeeklyChallenge && WeeklyChallenge != null)
+                    {
+                        // We are deleting the save file because it is a new weekly challenge.
+                        SaveFileManager.DeleteSaveFile(WeeklyChallenge);
+                    }
+
+                } else
+                {
+                    Plugin.Log.LogError("There was a problem loading the new weekly challenge.");
+                }
+            }
+        }
+
+        private String GetLocalWeeklyChallenge()
+        {
+            String path = WeeklyChallengeFilePath();
+            if (File.Exists(path))
+            {
+                return File.ReadAllText(path);
+            }
+            return null;
+        }
+
+        private void SaveWeeklyChallenge(String json)
+        {
+            String path = WeeklyChallengeFilePath();
+            File.WriteAllText(path, json);
+        }
+
+        private String WeeklyChallengeFilePath()
+        {
+            return Path.Combine(SaveFileManager.GetModPath(), "WeeklyChallenge.json");
         }
 
         public static void OnSceneLoaded(String sceneName, bool firstLoad)
@@ -99,6 +174,9 @@ namespace CustomChallenges
             {
                 Instance?.LoadMainMenuButton();
                 Instance?.FixPlayButton();
+            } else if (sceneName == SceneLoader.PostMainMenu)
+            {
+                Instance?.ApplyCruciball();
             } else if (sceneName == SceneLoader.FinalWinScene)
             {
                 Instance?.SaveChallengeVictory();
@@ -132,11 +210,11 @@ namespace CustomChallenges
 
         private void SaveChallengeVictory()
         {
-            if (ChallengeActive)
+            if (ChallengeActive && CurrentChallenge != WeeklyChallenge)
             {
                 String path = SaveFileManager.GetChallengeProgressSaveFile();
                 _challengeVictoryData[CurrentChallenge.Id] = true;
-                if(CurrentChallenge.TryGetEntry<bool>(Keys.ALLOW_CRUCIBALL, out bool allowCruciball) && allowCruciball)
+                if(CurrentChallenge.TryGetEntry<bool>(Properties.ALLOW_CRUCIBALL, out bool allowCruciball) && allowCruciball)
                 {
                     CruciballManager manager = Resources.FindObjectsOfTypeAll<CruciballManager>().FirstOrDefault();
                     if(manager != null)
@@ -163,13 +241,32 @@ namespace CustomChallenges
             }
         }
 
+        private void ApplyCruciball()
+        {
+            CruciballManager cruciballManager = Resources.FindObjectsOfTypeAll<CruciballManager>().FirstOrDefault();
+            _currentCruciballLevel = cruciballManager.currentCruciballLevel;
+
+            if (ChallengeActive)
+            {
+                if(CurrentChallenge.TryGetEntry<DataObject>(Properties.CRUCIBALL, out DataObject cruciball))
+                {
+                    if (cruciball.TryGetEntry<bool>(Properties.OVERWRITE_CRUCIBALL_LEVELS, out bool overwriteCruciball) && overwriteCruciball)
+                    {
+                        if(cruciballManager != null)
+                        {
+                            cruciballManager.currentCruciballLevel = -1;
+                        }
+                    }
+                }
+            }
+        }
+
         private void FixPlayButton()
         {
             GameObject gameObject = GameObject.Find("PlayButton");
             Button button = gameObject.GetComponent<Button>();
             button.onClick.AddListener(() => SetToDefaultSave());
             button.onClick.AddListener(() => ResetDescriptions());
-
         }
 
         private void SetToDefaultSave()
@@ -219,28 +316,30 @@ namespace CustomChallenges
             localize.enabled = true;
         }
 
-        private GameObject challengePopup;
+        private GameObject ChallengePopup;
+        private WeeklyChallengeButton WeeklyChallengeButton;
         private void LoadMainMenuButton()
         {
-            GameObject buttonPrefab = GameObject.Find("OptionButton");
-            GameObject challengeButton = GameObject.Instantiate(buttonPrefab, buttonPrefab.transform.parent);
-            challengeButton.name = "ChallengeButton";
-            DestroyImmediate(challengeButton.GetComponent<UIButtonClickEventDispatcher>());
-            DestroyImmediate(challengeButton.GetComponent<Button>());
-            Localize localize = challengeButton.GetComponentInChildren<Localize>();
-            localize?.SetTerm("Menu/CustomChallenges");
+            GameObject weeklyChallengeButtonObject = CreateMenuButton("WeeklyChallengeButton", "Menu/WeeklyChallenge", "Weekly Challenge", 1);
+            weeklyChallengeButtonObject.AddComponent<Button>();
+            WeeklyChallengeButton = weeklyChallengeButtonObject.AddComponent<WeeklyChallengeButton>();
+            WeeklyChallengeButton.SetChallengeData(WeeklyChallenge);
+
+            if (WeeklyChallenge == null) weeklyChallengeButtonObject.SetActive(false);
+
+            GameObject container = GameObject.Find("PeglinLogo");
+            container.transform.position += new Vector3(0, 1, 0);
+            GameObject challengeButton = CreateMenuButton("ChallengeButton", "Menu/CustomChallenges", "Challenges", 2);
             challengeButton.AddComponent<Button>().onClick.AddListener(() => LoadChallengeMenu());
-            challengeButton.GetComponentInChildren<TextMeshProUGUI>().SetText("Challenges");
-            challengeButton.transform.SetSiblingIndex(1);
 
             GameObject containerPrefab = GameObject.Find("CreditsContainer");
             GameObject challengeContainer = Instantiate(containerPrefab, containerPrefab.transform.parent);
             challengeContainer.name = "ChallengeContainer";
 
-            challengePopup = challengeContainer.transform.GetChild(0).gameObject;
-            challengePopup.name = "ChallengePopup";
+            ChallengePopup = challengeContainer.transform.GetChild(0).gameObject;
+            ChallengePopup.name = "ChallengePopup";
 
-            GameObject papyrus = challengePopup.transform.GetChild(2).gameObject; 
+            GameObject papyrus = ChallengePopup.transform.GetChild(2).gameObject; 
             GameObject scrollView = papyrus.transform.GetChild(0).gameObject;
             GameObject viewPort = scrollView.transform.GetChild(0).gameObject;
             GameObject buttonContainer = viewPort.transform.GetChild(0).gameObject;
@@ -259,7 +358,7 @@ namespace CustomChallenges
             GameObject prefab = null;
             foreach(Challenge data in Challenge.GetSortedChallenges())
             {
-                if(!Plugin.RevealAllChallenges && data.TryGetEntryArray<String>(Keys.REQUIRED_CHALLENGES, out String[] requiredChallenges))
+                if(!Plugin.RevealAllChallenges && data.TryGetEntryArray<String>(Properties.REQUIRED_CHALLENGES, out String[] requiredChallenges))
                 {
                     bool shouldSkip = false;
                     foreach(String challengeID in requiredChallenges)
@@ -305,17 +404,48 @@ namespace CustomChallenges
             }
         }
 
+        private GameObject CreateMenuButton(String name, String localizeTerm, String defaultText, int index)
+        {
+            GameObject buttonPrefab = GameObject.Find("OptionButton");
+            GameObject button = GameObject.Instantiate(buttonPrefab, buttonPrefab.transform.parent);
+            button.name = name;
+            DestroyImmediate(button.GetComponent<UIButtonClickEventDispatcher>());
+            DestroyImmediate(button.GetComponent<Button>());
+            button.GetComponentInChildren<Localize>()?.SetTerm(localizeTerm);
+            button.GetComponentInChildren<TextMeshProUGUI>().SetText(defaultText);
+            button.transform.SetSiblingIndex(index);
+            return button;
+        }
+
         private void LoadChallengeMenu()
         {
-            challengePopup?.SetActive(true);
+            ChallengePopup?.SetActive(true);
         }
 
         [HarmonyPatch(typeof(CruciballLevelSelector), nameof(CruciballLevelSelector.OnEnable))]
-        public static class FixCruciballLevel
+        public static class FixCruciballLevelSelection
         {
             public static void Postfix(CruciballLevelSelector __instance)
             {
                 __instance.ClassChanged(__instance.characterSelectController.currentlySelectedClass);
+            }
+        }
+
+        [HarmonyPatch(typeof(CruciballManager), nameof(CruciballManager.CruciballVictoryAchieved))]
+        public static class FixCruciballLevel
+        {
+            public static void Prefix(CruciballManager __instance)
+            {
+                if (ChallengeActive)
+                {
+                    if (CurrentChallenge.TryGetEntry<DataObject>(Properties.CRUCIBALL, out DataObject cruciball))
+                    {
+                        if (cruciball.TryGetEntry<bool>(Properties.OVERWRITE_CRUCIBALL_LEVELS, out bool overwriteCruciball) && overwriteCruciball)
+                        {
+                           __instance.currentCruciballLevel = CurrentCruciballLevel;
+                        }
+                    }
+                }
             }
         }
     }

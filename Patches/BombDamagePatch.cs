@@ -17,7 +17,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if (challenge.TryGetEntry<float>(Keys.BOMB_DAMAGE_MULTIPLIER, out float multiplier))
+                if (challenge.TryGetEntry<float>(Properties.BOMB_DAMAGE_MULTIPLIER, out float multiplier))
                 {
                     __result = Mathf.RoundToInt(__result * multiplier);
                 }
@@ -34,7 +34,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if (challenge.TryGetEntry<float>(Keys.BOMB_DAMAGE_MULTIPLIER, out float multiplier))
+                if (challenge.TryGetEntry<float>(Properties.BOMB_DAMAGE_MULTIPLIER, out float multiplier))
                 {
                     __result = Mathf.RoundToInt(__result * multiplier);
                 }

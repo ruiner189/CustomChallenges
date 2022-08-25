@@ -15,7 +15,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(challenge.TryGetEntry<int>(Keys.RIGGED_BOMB_SELF_DAMAGE, out int rigDamage))
+                if(challenge.TryGetEntry<int>(Properties.RIGGED_BOMB_SELF_DAMAGE, out int rigDamage))
                 {
                     __instance._riggedBombSelfDamage = rigDamage;
                 }

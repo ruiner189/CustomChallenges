@@ -15,11 +15,11 @@ namespace CustomChallenges
     [RequireComponent(typeof(Button))]
     public class ChallengeButton : MonoBehaviour
     {
-        private TextMeshProUGUI _text;
-        private Button _button;
-        private Challenge _challenge;
+        protected TextMeshProUGUI _text;
+        protected Button _button;
+        protected Challenge _challenge;
 
-        public void Start()
+        public virtual void Start()
         {
             if(_challenge == null)
             {
@@ -33,14 +33,13 @@ namespace CustomChallenges
             _button.onClick.AddListener(() => OnClick());
             _text.text = _challenge.Name;
 
-
-            if ( _challenge.ContainsKey(Keys.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
+            if ( _challenge.ContainsKey(Properties.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Properties.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
             {
                 Localize localize = _text.gameObject.AddComponent<Localize>();
                 localize.SetTerm($"Challenges/{_challenge.Id}_name");
             }
 
-            bool allowCruciball = _challenge.TryGetEntry<bool>(Keys.ALLOW_CRUCIBALL, out bool cruciball) && cruciball;
+            bool allowCruciball = _challenge.TryGetEntry<bool>(Properties.ALLOW_CRUCIBALL, out bool cruciball) && cruciball;
             bool maxCruciball = allowCruciball && ChallengeManager.IsChallengeMaxCruciball(_challenge);
             bool firstVictory = ChallengeManager.IsChallengeCompleted(_challenge.Id);
 
@@ -75,7 +74,7 @@ namespace CustomChallenges
             playButton.OnEnable();
             playButton.ButtonClicked();
 
-            GameObject.Find("ChallengePopup").SetActive(false);
+            GameObject.Find("ChallengePopup")?.SetActive(false);
             CustomButton = Camera.main.gameObject.FindChild(
                 "Character+CruciballCanvas",
                 "CustomStartButton"
@@ -103,7 +102,7 @@ namespace CustomChallenges
             title.GetComponent<TextMeshProUGUI>().text = _challenge.Name;
             Localize localize = title.GetComponent<Localize>();
 
-            if (_challenge.ContainsKey(Keys.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
+            if (_challenge.ContainsKey(Properties.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Properties.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
             {
                 localize.SetTerm($"Challenges/{_challenge.Id}_name");
                 localize.enabled = true;
@@ -119,7 +118,7 @@ namespace CustomChallenges
             description.GetComponent<TextMeshProUGUI>().text = _challenge.Description ?? "";
             Localize localize = description.GetComponent<Localize>();
 
-            if (_challenge.ContainsKey(Keys.LOCALIZATION_DESCRIPTION) || (_challenge.TryGetEntry<bool>(Keys.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
+            if (_challenge.ContainsKey(Properties.LOCALIZATION_DESCRIPTION) || (_challenge.TryGetEntry<bool>(Properties.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
             {
                 localize.SetTerm($"Challenges/{_challenge.Id}_desc");
                 localize.enabled = true;
@@ -134,7 +133,7 @@ namespace CustomChallenges
         {
             Localize localize = footer.GetComponent<Localize>();
             TextMeshProUGUI text = footer.GetComponent<TextMeshProUGUI>();
-            if (_challenge.TryGetEntry<bool>(Keys.ALLOW_CRUCIBALL, out bool cruciball) && cruciball)
+            if (_challenge.TryGetEntry<bool>(Properties.ALLOW_CRUCIBALL, out bool cruciball) && cruciball)
             {
                 localize.SetTerm($"Menu/CruciballAllowed");
                 localize.enabled = true;

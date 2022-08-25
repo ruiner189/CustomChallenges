@@ -22,9 +22,9 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive && enemy.CurrentHealth > 0)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if (challenge.TryGetEntry<int>(Keys.ENRAGE_THRESHOLD, out int threshold) && threshold <= damage)
+                if (challenge.TryGetEntry<int>(Properties.ENRAGE_THRESHOLD, out int threshold) && threshold <= damage)
                 {
-                    if (challenge.TryGetEntry<int>(Keys.ENRAGE_AMOUNT, out int enrage) && enrage > 0)
+                    if (challenge.TryGetEntry<int>(Properties.ENRAGE_AMOUNT, out int enrage) && enrage > 0)
                     {
                         enemy.AddDamageBuff(enrage);
                     }

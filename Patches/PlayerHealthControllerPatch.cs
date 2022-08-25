@@ -11,7 +11,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(challenge.TryGetEntry<bool>(Keys.PERMANENT_DAMAGE, out bool permanentDamage) && permanentDamage)
+                if(challenge.TryGetEntry<bool>(Properties.PERMANENT_DAMAGE, out bool permanentDamage) && permanentDamage)
                 {
                     __instance._maxPlayerHealth._value = __instance._playerHealth._value;
                     __instance.UpdateHealthBar();

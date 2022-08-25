@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <Target Name="Copy" AfterTargets="Build">
-    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(appdata)\Thunderstore Mod Manager\DataFolder\Peglin\profiles\Development\BepInEx\plugins\CustomChallenges-CustomChallenges\$(AssemblyName).dll" />
+    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFiles="$(appdata)\Thunderstore Mod Manager\DataFolder\Peglin\profiles\Development\BepInEx\plugins\Promethium-CustomChallenges\$(AssemblyName).dll" />
   </Target>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

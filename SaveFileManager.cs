@@ -44,7 +44,16 @@ namespace CustomChallenges
 
         public static String GetSaveFile(Challenge challenge)
         {
+            if (challenge == ChallengeManager.WeeklyChallenge)
+                return GetSaveFile("weeklyChallenge");
             return GetSaveFile(challenge.Id);
+        }
+
+        public static void DeleteSaveFile(Challenge challenge)
+        {
+            String path = GetSaveFile(challenge);
+            if (File.Exists(path))
+                File.Delete(path);
         }
 
         public static String GetChallengeProgressSaveFile()

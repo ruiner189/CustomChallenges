@@ -18,7 +18,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(challenge.TryGetEntry<float>(Keys.PLAYER_DAMAGE_MULTIPLIER, out float multiplier))
+                if(challenge.TryGetEntry<float>(Properties.PLAYER_DAMAGE_MULTIPLIER, out float multiplier))
                 {
                     __result = Mathf.RoundToInt(__result * multiplier);
                 }

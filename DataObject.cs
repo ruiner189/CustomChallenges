@@ -7,8 +7,7 @@ namespace CustomChallenges
 {
     public class DataObject
     {
-        protected readonly Dictionary<String, object> _data = new Dictionary<string, object>();
-
+        public readonly Dictionary<String, object> _data = new Dictionary<string, object>();
         public static DataObject From(Dictionary<String, object> data)
         {
             DataObject obj = new DataObject();
@@ -25,13 +24,13 @@ namespace CustomChallenges
             JObject obj = JObject.Load(token.CreateReader());
             foreach (JProperty property in obj.Properties())
             {
-                data._data.Add(property.Name, data.GetValue(property.Value));
+                data._data.Add(property.Name, GetValue(property.Value));
             }
 
             return data;
         }
 
-        protected object GetValue(JToken token)
+        protected static object GetValue(JToken token)
         {
             switch (token.Type)
             {
@@ -75,7 +74,7 @@ namespace CustomChallenges
             return _data.GetValueOrDefault(key);
         }
 
-        public T TryGetNestedEntry<T>(params String[] keys)
+        public bool TryGetNestedEntry<T>(out T result, params String[] keys)
         {
             DataObject currentObject = this;
             for(int i = 0; i < keys.Length - 1; i++)
@@ -83,13 +82,19 @@ namespace CustomChallenges
                 if (currentObject.TryGetEntry<DataObject>(keys[i], out DataObject nextObject) && nextObject != null)
                     currentObject = nextObject;
                 else
-                    return default;
+                {
+                    result = default;
+                    return false;
+                }
             }
-            if(currentObject.TryGetEntry<T>(keys[keys.Length - 1], out T result))
-                return result;
+            if(currentObject.TryGetEntry<T>(keys[keys.Length - 1], out T r))
+            {
+                result = r;
+                return true;
+            }
 
-            return default;
-
+            result = default;
+            return false;
         }
 
         public bool TryGetEntry(String key, out Object result)

@@ -19,7 +19,6 @@ namespace CustomChallenges.Patches
         private static List<Relic> _rareScenarioRelics;
         private static List<Relic> _bossRelicPool;
 
-        private static List<GameObject> _orbPool;
         private static OrbPool _gameOrbPool;
 
         public static void Prefix(GameInit __instance)
@@ -32,33 +31,55 @@ namespace CustomChallenges.Patches
             CopyOrbPool();
             RevertOrbPool();
 
-            if (ChallengeManager.ChallengeActive && __instance.LoadData.NewGame)
+            if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-
-                if (challenge.TryGetEntryArray<string>(Keys.STARTING_ORBS, out String[] startingOrbs))
+                if (challenge.ContainsKey(Properties.CRUCIBALL) && ChallengeManager.CurrentCruciballLevel > 0)
                 {
-                    List<GameObject> orbs = new List<GameObject>();
-                    foreach(String orb in startingOrbs)
-                    {
-                        try
-                        {
-                            GameObject obj = Resources.Load<GameObject>($"Prefabs/Orbs/{orb}");
-                            if (obj != null) orbs.Add(obj);
-                        } catch(Exception e)
-                        {
-                            Plugin.Log.LogError($"Failed to load the orb {orb}");
-                            Plugin.Log.LogError(e.StackTrace);
-                        }
-                    }
-                    __instance._initialDeck.Balls = orbs;
+                    Plugin.Log.LogMessage("Is this called?");
+                    challenge = CruciballChallenge.GetCruciballChallenge(challenge, ChallengeManager.CurrentCruciballLevel);
+                    ChallengeManager.CurrentChallenge = challenge;
                 }
 
-                if (challenge.TryGetEntryArray<string>(Keys.WHITELIST_RELICS, out String[] whitelistRelics))
+                if (__instance.LoadData.NewGame)
+                {
+                    if (challenge.TryGetEntryArray<string>(Properties.STARTING_ORBS, out String[] startingOrbs))
+                    {
+                        List<GameObject> orbs = new List<GameObject>();
+                        foreach (String orb in startingOrbs)
+                        {
+                            try
+                            {
+                                GameObject obj = Resources.Load<GameObject>($"Prefabs/Orbs/{orb}");
+                                if (obj != null) orbs.Add(obj);
+                            }
+                            catch (Exception e)
+                            {
+                                Plugin.Log.LogError($"Failed to load the orb {orb}");
+                                Plugin.Log.LogError(e.StackTrace);
+                            }
+                        }
+                        StaticGameData.StartingOrbs = orbs.ToArray();
+                    }
+
+                    if (challenge.TryGetEntry<int>(Properties.MAX_HEALTH, out int maxHealth))
+                    {
+                        int health = Math.Max(maxHealth, 1);
+                        if (__instance.maxPlayerHealth != null)
+                        {
+                            __instance.maxPlayerHealth.Set(health);
+                        }
+                        if (__instance.playerHealth != null)
+                        {
+                            __instance.playerHealth.Set(health);
+                        }
+                    }
+                }
+                if (challenge.TryGetEntryArray<string>(Properties.WHITELIST_RELICS, out String[] whitelistRelics))
                 {
                     List<Relic> relics = relicManager.TryGetRelics(whitelistRelics);
                     relicManager.ResetRelicPools();
-                    foreach(Relic relic in relics)
+                    foreach (Relic relic in relics)
                     {
                         switch (relic.globalRarity)
                         {
@@ -78,34 +99,23 @@ namespace CustomChallenges.Patches
                     }
                     relicManager.SetupInternalRelicPools();
                 }
-                else if (challenge.TryGetEntryArray<string>(Keys.BLACKLIST_RELICS, out String[] blacklistRelics))
+                else if (challenge.TryGetEntryArray<string>(Properties.BLACKLIST_RELICS, out String[] blacklistRelics))
                 {
                     relicManager.TryRemoveRelics(blacklistRelics);
                 }
 
-                if(challenge.TryGetEntryArray<String>(Keys.WHITELIST_ORBS, out String[] whitelistOrbs))
+                if (challenge.TryGetEntryArray<String>(Properties.WHITELIST_ORBS, out String[] whitelistOrbs))
                 {
                     List<GameObject> orbs = RemoveOrbs(whitelistOrbs, false);
                     _gameOrbPool.AvailableOrbs = orbs.ToArray();
-                } else if (challenge.TryGetEntryArray<String>(Keys.BLACKLIST_ORBS, out String[] blacklistOrbs))
+                }
+                else if (challenge.TryGetEntryArray<String>(Properties.BLACKLIST_ORBS, out String[] blacklistOrbs))
                 {
                     List<GameObject> orbs = RemoveOrbs(blacklistOrbs, true);
                     _gameOrbPool.AvailableOrbs = orbs.ToArray();
                 }
-
-                if(challenge.TryGetEntry<int>(Keys.MAX_HEALTH, out int maxHealth))
-                {
-                    int health = Math.Max(maxHealth, 1);
-                    if (__instance.maxPlayerHealth != null)
-                    {
-                        __instance.maxPlayerHealth.Set(health);
-                    }
-                    if (__instance.playerHealth != null)
-                    {
-                        __instance.playerHealth.Set(health);
-                    }
-                }
-            } 
+            }
+            
         }
 
         private static void CopyRelicPools(RelicManager relicManager)
@@ -181,7 +191,7 @@ namespace CustomChallenges.Patches
                 Challenge challenge = ChallengeManager.CurrentChallenge;
                 RelicManager relicManager = __instance._relicManager;
 
-                if(challenge.TryGetEntryArray<string>(Keys.STARTING_RELICS, out String[] startingRelics))
+                if(challenge.TryGetEntryArray<string>(Properties.STARTING_RELICS, out String[] startingRelics))
                 {
                     foreach(String relicName in startingRelics)
                     {
@@ -201,7 +211,7 @@ namespace CustomChallenges.Patches
                     }
                 }
 
-                if(challenge.TryGetEntry<bool>(Keys.SKIP_STARTING_RELIC, out bool skipStartingRelic) && skipStartingRelic){
+                if(challenge.TryGetEntry<bool>(Properties.SKIP_STARTING_RELIC, out bool skipStartingRelic) && skipStartingRelic){
                     __instance._chooseRelicIcons = null;
                     __instance._chosenRelics = null;
                     __instance.LoadMapScene();
@@ -218,7 +228,7 @@ namespace CustomChallenges.Patches
             if (ChallengeManager.ChallengeActive)
             {
                 Challenge challenge = ChallengeManager.CurrentChallenge;
-                if(challenge.TryGetEntry<int>(Keys.STARTING_ACT, out int startingAct))
+                if(challenge.TryGetEntry<int>(Properties.STARTING_ACT, out int startingAct))
                 {
                     String scene = null;
                     if (startingAct == 1) scene = "ForestMap";

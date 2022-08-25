@@ -140,20 +140,26 @@
       "name": "Pacifist",
       "description": "You are not allowed to kill. Destroy the board to show your dedication.",
       "author": "Ruiner",
+      "orbDestroysPeg": true,
       "startingOrbs": [
         "Ohmygorb-Lvl1",
         "Ohmygorb-Lvl1",
         "Ohmygorb-Lvl1",
-        "Ohmygorb-Lvl1"
+        "Rubborb-Lvl1"
       ],
       "whitelistOrbs": [
-        "destroy_peg_orb"
+        "destroy_peg_orb",
+        "fireball",
+        "portal",
+        "icicle",
+        "rubber",
+        "boulder",
+        "ghost"
       ],
       "blacklistScenarios": [
         "BrambleTree",
         "OrbeliskMapData",
         "Thunderstorm",
-        "Inferno",
         "CrowClearing",
         "OldBrickSlime",
         "MirrorRemove",
