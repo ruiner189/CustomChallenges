@@ -29,10 +29,8 @@ namespace CustomChallenges
 
             if (original.TryGetEntry<DataObject>(Properties.CRUCIBALL, out DataObject cruciball))
             {
-                Plugin.Log.LogMessage("Found Cruciball");
                 if (cruciball.TryGetEntry<DataObject>(Properties.LEVELS, out DataObject cruciballLevels))
                 {
-                    Plugin.Log.LogMessage("Found Levels");
                     if (cruciball.TryGetEntry<bool>(Properties.CASCADING_LEVELS, out bool cascading) && cascading)
                     {
                         List<DataObject> previousLevels = new List<DataObject>();
