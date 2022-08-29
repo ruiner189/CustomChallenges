@@ -15,7 +15,6 @@ namespace CustomChallenges
     [RequireComponent(typeof(Button))]
     public class WeeklyChallengeButton : ChallengeButton
     {
-
         public override void Start()
         {
             _button = gameObject.GetComponent<Button>();

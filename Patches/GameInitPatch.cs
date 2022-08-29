@@ -36,7 +36,7 @@ namespace CustomChallenges.Patches
                 Challenge challenge = ChallengeManager.CurrentChallenge;
                 if (challenge.ContainsKey(Properties.CRUCIBALL) && ChallengeManager.CurrentCruciballLevel > 0)
                 {
-                    challenge = CruciballChallenge.GetCruciballChallenge(challenge, ChallengeManager.CurrentCruciballLevel);
+                    challenge = Challenge.GetCruciballChallenge(challenge, ChallengeManager.CurrentCruciballLevel);
                     ChallengeManager.CurrentChallenge = challenge;
                 }
 

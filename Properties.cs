@@ -45,7 +45,7 @@ namespace CustomChallenges
         public const String BOMB_DAMAGE_MULTIPLIER = "bombDamageMultiplier";
         public const String ORB_DESTROYS_PEG = "orbDestroysPeg";
 
-        // WinConditions
+        // Win Conditions
         public const String WIN_CONDITIONS = "winConditions";
         public const String REMAINING_PEGS = "remainingPegs";
         public const String BATTLE_TIME_LIMIT = "battleTimeLimit";
@@ -59,11 +59,11 @@ namespace CustomChallenges
         public const String SOURCE = "source";
         public const String SOURCE_ID = "sourceId";
 
-
         // Cruciball
         public const String CRUCIBALL = "cruciball";
         public const String CRUCIBALL_DESCRIPTIONS = "cruciballDescriptions";
         public const String MAX_CRUCIBALL_LEVEL = "maxCruciballLevel";
+        public const String STARTING_CRUCIBALL_LEVEL = "startingCruciballLevel";
         public const String OVERWRITE_CRUCIBALL_LEVELS = "overwriteCruciballLevels";
         public const String CASCADING_LEVELS = "cascadingLevels";
         public const String LEVELS = "levels";

@@ -20,6 +20,9 @@ using BepInEx;
 using ProLib.Extensions;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using Peglin.ClassSystem;
+using Saving;
 
 namespace CustomChallenges
 {
@@ -431,18 +434,41 @@ namespace CustomChallenges
             }
         }
 
-        [HarmonyPatch(typeof(CruciballManager), nameof(CruciballManager.CruciballVictoryAchieved))]
-        public static class FixCruciballLevel
+        [HarmonyPatch(typeof(CruciballLevelSelector), nameof(CruciballLevelSelector.ClassChanged))]
+        public static class ApplyMinLevel
         {
-            public static void Prefix(CruciballManager __instance)
+            public static void Prefix(Class newClass)
             {
                 if (ChallengeActive)
                 {
                     if (CurrentChallenge.TryGetEntry<DataObject>(Properties.CRUCIBALL, out DataObject cruciball))
                     {
-                        if (cruciball.TryGetEntry<bool>(Properties.OVERWRITE_CRUCIBALL_LEVELS, out bool overwriteCruciball) && overwriteCruciball)
+                        if (cruciball.TryGetEntry<int>(Properties.STARTING_CRUCIBALL_LEVEL, out int startingLevel))
                         {
-                           __instance.currentCruciballLevel = CurrentCruciballLevel;
+                            if (PersistentPlayerData.Instance.CruciballLevels[newClass] < startingLevel)
+                            {
+                                PersistentPlayerData.Instance.CruciballLevels[newClass] = startingLevel;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+        [HarmonyPatch(typeof(BattleController), nameof(BattleController.CompleteVictory))]
+        public static class FixCruciballLevel
+        {
+            public static void Prefix(BattleController __instance)
+            {
+                if (ChallengeActive)
+                {
+                    if(CurrentChallenge.TryGetEntry<bool>(Properties.ALLOW_CRUCIBALL, out bool allowCruciball) && allowCruciball)
+                    {
+                        if(StaticGameData.currentNode != null && StaticGameData.currentNode.isFinalNode && StaticGameData.activeMapScene == SceneLoader.MinesMap)
+                        {
+                            __instance._cruciballManager.currentCruciballLevel = CurrentCruciballLevel;
                         }
                     }
                 }

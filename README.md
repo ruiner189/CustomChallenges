@@ -21,6 +21,13 @@ Bug reports should be made on github! Just follow this link to get started: http
 
 ## Changelog
 <details>
+  <summary> v1.1.1 </summary>
+
+* Fixed Cruciball Progress on challenges not working correctly
+* Added Property "startingCruciballLevel"
+</details>
+
+<details>
   <summary> v1.1.0 </summary>
 
 * Added Weekly Challenges

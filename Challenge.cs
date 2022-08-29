@@ -67,6 +67,53 @@ namespace CustomChallenges
             return null;
         }
 
+        public static Challenge Combine(Challenge challenge, params DataObject[] datas)
+        {
+            Challenge sub = new Challenge(challenge.Id, challenge._data);
+
+            if (datas != null)
+            {
+                foreach (DataObject data in datas)
+                {
+                    foreach (var pair in data.GetData())
+                    {
+                        sub._data[pair.Key] = pair.Value;
+                    }
+                }
+            }
+            return sub;
+        }
+
+        public static Challenge GetCruciballChallenge(Challenge original, int cruciballLevel)
+        {
+            if (original == null) return null;
+
+            if (original.TryGetEntry<DataObject>(Properties.CRUCIBALL, out DataObject cruciball))
+            {
+                if (cruciball.TryGetEntry<DataObject>(Properties.LEVELS, out DataObject cruciballLevels))
+                {
+                    if (cruciball.TryGetEntry<bool>(Properties.CASCADING_LEVELS, out bool cascading) && cascading)
+                    {
+                        List<DataObject> previousLevels = new List<DataObject>();
+                        for (int i = 1; i < cruciballLevel + 1; i++)
+                        {
+                            if (cruciballLevels.TryGetEntry<DataObject>(i.ToString(), out DataObject level))
+                            {
+                                previousLevels.Add(level);
+                            }
+                        }
+                        return Combine(original, previousLevels.ToArray());
+                    }
+                    else if (cruciballLevels.TryGetEntry<DataObject>(cruciballLevel.ToString(), out DataObject level))
+                    {
+                        Combine(original, level);
+                    }
+
+                }
+            }
+            return original;
+        }
+
         private bool IsChallengeValid()
         {
             if(!ContainsKey(Properties.ID))
