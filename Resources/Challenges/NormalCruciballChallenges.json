@@ -5,6 +5,14 @@
       "name": "Unguided Path",
       "description": "Peglin forgot how to aim! Be careful on where you shoot!",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Unguided Path",
+         "简体中文": "路径无引导"
+       },
+      "localizationDescription": {
+         "English": "Peglin forgot how to aim! Be careful on where you shoot!",
+         "简体中文": "哥布林忘记了如何瞄准！注意你射击的位置！"
+       },
       "useExternalLocalization": true,
       "predictionBounces": 0,
       "blacklistRelics": [
