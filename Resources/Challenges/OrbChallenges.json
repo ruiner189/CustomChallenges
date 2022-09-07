@@ -5,6 +5,14 @@
       "name": "Night of the Living Dead",
       "author": "Ruiner",
       "description": "Dead Orbs = Dead Enemies",
+      "localizationName": {
+         "English": "Night of the Living Dead",
+         "简体中文": "活死钉之夜"
+       },
+      "localizationDescription": {
+         "English": "Dead Orbs = Dead Enemies",
+         "简体中文": "<sprite name="PEG_CLEARED">  才是你的帮手。"
+       },
       "preventPegMinigame": true,
       "whitelistOrbs": [
         "Morbidorb",
@@ -32,6 +40,14 @@
       "name": "The Mightiest Stone",
       "description": "This is no ordinary stone- it is the mighties stone in creation. Passed from generation to generation, every Peglin wants this stone. Now it's your turn to use the stone to defeat your enemies! Show the world why this stone is so mighty.",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "The Mightiest Stone",
+         "简体中文": "最强力的石头"
+       },
+      "localizationDescription": {
+         "English": "This is no ordinary stone- it is the mighties stone in creation. Passed from generation to generation, every Peglin wants this stone. Now it's your turn to use the stone to defeat your enemies! Show the world why this stone is so mighty.",
+         "简体中文": "这不是一个普通的石头，这是史上最强力的石头。每个哥布林都想要它，但只有真正勇猛的哥布林才配得上它。你在阴差阳错间得到了使用它的机会，现在是时候证明你配得上它了！"
+       },
       "startingOrbs": [
         "Stoneorb-Lvl1"
       ],
@@ -63,6 +79,14 @@
       "name": "Up and Down",
       "description": "A lot of damage now or later? To upgrade or to cash in. Every Peglin needs to have these skills to survive.",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Up and Down",
+         "简体中文": "升升降降"
+       },
+      "localizationDescription": {
+         "English": "A lot of damage now or later? To upgrade or to cash in. Every Peglin needs to have these skills to survive.",
+         "简体中文": "想先爽还是后爽？你可以选择“储蓄”伤害或者“透支”伤害，但是想从中生存下来是需要技巧的。"
+       },
       "preventPegMinigame": true,
       "startingOrbs": [
         "DebuffOrb-Lvl1",
@@ -90,6 +114,14 @@
       "name": "Critical Numbers",
       "description": "Big Numbers = More Fun!",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Critical Numbers",
+         "简体中文": "暴击的大数字"
+       },
+      "localizationDescription": {
+         "English": "Big Numbers = More Fun!",
+         "简体中文": "暴击造成的这么大的数字一定很有趣！"
+       },
       "enemyHealthMultiplier": 15.0,
       "preventPegMinigame": true,
       "startingOrbs": [
@@ -122,6 +154,14 @@
       "name": "The Snake That Grows",
       "description": "Feed your snakey friend some yummy pegs and watch it grow!",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "The Snake That Grows",
+         "简体中文": "蛇蛇的大数字"
+       },
+      "localizationDescription": {
+         "English": "Feed your snakey friend some yummy pegs and watch it grow!",
+         "简体中文": "衔尾弹珠养起来后的大数字一定很有趣！"
+       },
       "requiredChallenges": [
         "bigNumbers"
       ],
