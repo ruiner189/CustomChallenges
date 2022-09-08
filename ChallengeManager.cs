@@ -323,7 +323,7 @@ namespace CustomChallenges
         private WeeklyChallengeButton WeeklyChallengeButton;
         private void LoadMainMenuButton()
         {
-            GameObject weeklyChallengeButtonObject = CreateMenuButton("WeeklyChallengeButton", "Menu/WeeklyChallenge", "Weekly Challenge", 1);
+            GameObject weeklyChallengeButtonObject = CreateMenuButton("WeeklyChallengeButton", "Menu/WeeklyChallenge", 1);
             weeklyChallengeButtonObject.AddComponent<Button>();
             WeeklyChallengeButton = weeklyChallengeButtonObject.AddComponent<WeeklyChallengeButton>();
             WeeklyChallengeButton.SetChallengeData(WeeklyChallenge);
@@ -332,7 +332,7 @@ namespace CustomChallenges
 
             GameObject container = GameObject.Find("PeglinLogo");
             container.transform.position += new Vector3(0, 1, 0);
-            GameObject challengeButton = CreateMenuButton("ChallengeButton", "Menu/CustomChallenges", "Challenges", 2);
+            GameObject challengeButton = CreateMenuButton("ChallengeButton", "Menu/CustomChallenges", 2);
             challengeButton.AddComponent<Button>().onClick.AddListener(() => LoadChallengeMenu());
 
             GameObject containerPrefab = GameObject.Find("CreditsContainer");
@@ -408,7 +408,7 @@ namespace CustomChallenges
             }
         }
 
-        private GameObject CreateMenuButton(String name, String localizeTerm, String defaultText, int index)
+        private GameObject CreateMenuButton(String name, String localizeTerm, int index)
         {
             GameObject buttonPrefab = GameObject.Find("OptionButton");
             GameObject button = GameObject.Instantiate(buttonPrefab, buttonPrefab.transform.parent);
@@ -416,7 +416,6 @@ namespace CustomChallenges
             DestroyImmediate(button.GetComponent<UIButtonClickEventDispatcher>());
             DestroyImmediate(button.GetComponent<Button>());
             button.GetComponentInChildren<Localize>()?.SetTerm(localizeTerm);
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(defaultText);
             button.transform.SetSiblingIndex(index);
             return button;
         }

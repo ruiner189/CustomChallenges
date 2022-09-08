@@ -16,13 +16,13 @@
     <Reference Include="$(peglin)\Assembly-CSharp.dll" />
     <Reference Include="$(appdata)\Thunderstore Mod Manager\DataFolder\Peglin\profiles\Development\BepInEx\plugins\Promethium-ProLib\ProLib.dll" />
     <EmbeddedResource Include="Resources\Challenges\*" />
+    <EmbeddedResource Include="Resources\Localization\*" />
   </ItemGroup>
 
   <!-- Newtonsoft is being used, as it is far superior than the included libraries in Peglin for JSON manipulating -->
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
-
 
   <!-- This copies the compliled .dll to the location specified -->
   <Target Name="Copy" AfterTargets="Build">

@@ -80,13 +80,13 @@
       "description": "A lot of damage now or later? To upgrade or to cash in. Every Peglin needs to have these skills to survive.",
       "author": "Ruiner",
       "localizationName": {
-         "English": "Up and Down",
-         "简体中文": "升升降降"
-       },
+        "English": "Up and Down",
+        "简体中文": "升升降降"
+      },
       "localizationDescription": {
-         "English": "A lot of damage now or later? To upgrade or to cash in. Every Peglin needs to have these skills to survive.",
-         "简体中文": "想先爽还是后爽？你可以选择“储蓄”伤害或者“透支”伤害，但是想从中生存下来是需要技巧的。"
-       },
+        "English": "A lot of damage now or later? To upgrade or to cash in. Every Peglin needs to have these skills to survive.",
+        "简体中文": "想先爽还是后爽？你可以选择“储蓄”伤害或者“透支”伤害，但是想从中生存下来是需要技巧的。"
+      },
       "preventPegMinigame": true,
       "startingOrbs": [
         "DebuffOrb-Lvl1",
@@ -98,15 +98,14 @@
         "debuff",
         "buff"
       ],
-      "blacklistScenarios": [
-        "BrambleTree",
-        "OrbeliskMapData",
-        "Thunderstorm",
-        "Inferno",
-        "CrowClearing",
-        "OldBrickSlime",
-        "MirrorRemove",
-        "MinecartMapData"
+      "whitelistScenarios": [
+        "WaterfallMapData",
+        "Gambler",
+        "HealingTreeScenario",
+        "PeglinChef",
+        "VampireScenarioMapData",
+        "SecretTunnelMapData",
+        "ForestPortalMapData"
       ]
     },
     {
@@ -115,13 +114,13 @@
       "description": "Big Numbers = More Fun!",
       "author": "Ruiner",
       "localizationName": {
-         "English": "Critical Numbers",
-         "简体中文": "暴击的大数字"
-       },
+        "English": "Critical Numbers",
+        "简体中文": "暴击的大数字"
+      },
       "localizationDescription": {
-         "English": "Big Numbers = More Fun!",
-         "简体中文": "暴击造成的这么大的数字一定很有趣！"
-       },
+        "English": "Big Numbers = More Fun!",
+        "简体中文": "暴击造成的这么大的数字一定很有趣！"
+      },
       "enemyHealthMultiplier": 15.0,
       "preventPegMinigame": true,
       "startingOrbs": [
@@ -147,6 +146,15 @@
         "critiball",
         "icicle",
         "dagger"
+      ],
+      "whitelistScenarios": [
+        "WaterfallMapData",
+        "Gambler",
+        "HealingTreeScenario",
+        "PeglinChef",
+        "VampireScenarioMapData",
+        "SecretTunnelMapData",
+        "ForestPortalMapData"
       ]
     },
     {
@@ -155,13 +163,13 @@
       "description": "Feed your snakey friend some yummy pegs and watch it grow!",
       "author": "Ruiner",
       "localizationName": {
-         "English": "The Snake That Grows",
-         "简体中文": "蛇蛇的大数字"
-       },
+        "English": "The Snake That Grows",
+        "简体中文": "蛇蛇的大数字"
+      },
       "localizationDescription": {
-         "English": "Feed your snakey friend some yummy pegs and watch it grow!",
-         "简体中文": "衔尾弹珠养起来后的大数字一定很有趣！"
-       },
+        "English": "Feed your snakey friend some yummy pegs and watch it grow!",
+        "简体中文": "衔尾弹珠养起来后的大数字一定很有趣！"
+      },
       "requiredChallenges": [
         "bigNumbers"
       ],
@@ -185,19 +193,14 @@
         "ALL_ATTACKS_ECHO",
         "NORMAL_ATTACKS_OVERFLOW"
       ],
-      "blacklistScenarios": [
-        "BrambleTree",
-        "OrbeliskMapData",
-        "Thunderstorm",
-        "Inferno",
-        "CrowClearing",
-        "OldBrickSlime",
-        "MirrorRemove",
-        "MysteriousAltarOffer",
-        "MinecartMapData",
-        "PeglinEchoScenarioMapData",
-        "SlimyPathMapData",
-        "HaglinScouting"
+      "whitelistScenarios": [
+        "WaterfallMapData",
+        "Gambler",
+        "HealingTreeScenario",
+        "PeglinChef",
+        "VampireScenarioMapData",
+        "SecretTunnelMapData",
+        "ForestPortalMapData"
       ],
       "blacklistRelics": [
         "ADD_ORBS_AND_UPGRADE"

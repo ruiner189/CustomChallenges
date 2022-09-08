@@ -97,7 +97,7 @@ namespace CustomChallenges
                 int count = 0;
                 foreach(Peg peg in _battleController.pegManager._allPegs)
                 {
-                    if (peg != null && (peg.pegType == Peg.PegType.REGULAR || peg.pegType == Peg.PegType.CRIT || peg.pegType == Peg.PegType.RESET))
+                    if (peg != null && (peg.pegType == Peg.PegType.REGULAR || peg.pegType == Peg.PegType.CRIT || peg.pegType == Peg.PegType.RESET) && (peg is RegularPeg || peg is LongPeg) && (peg is not SlimeOnlyPeg))
                     {
                         count++;
                         if (count > _remainingPegs) return false;

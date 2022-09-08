@@ -21,6 +21,14 @@ Bug reports should be made on github! Just follow this link to get started: http
 
 ## Changelog
 <details>
+  <summary> v1.1.2 </summary>
+
+* Fixed scenario issues with some challenges
+* Fixed pacifist soft-lock
+* Fixed font not changing when on a different language
+</details>
+
+<details>
   <summary> v1.1.1 </summary>
 
 * Fixed Cruciball Progress on challenges not working correctly

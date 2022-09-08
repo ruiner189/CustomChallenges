@@ -1,11 +1,8 @@
 ﻿using ProLib.Attributes;
 using ProLib.Extensions;
 using ProLib.Loaders;
+using ProLib.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,15 +23,15 @@ namespace CustomChallenges.UI
         public float warningThreshold = 30;
         public float criticalThreshold = 10;
 
-        public Color warningColor = new Color(1, 165f / 255f, 0);
-        public Color criticalColor = Color.red;
-        public Color defaultColor = Color.white;
+        public readonly Color warningColor = new Color(1, 165f / 255f, 0);
+        public readonly Color criticalColor = Color.red;
+        public readonly Color defaultColor = Color.white;
 
         public void Awake()
         {
             _text = gameObject.GetComponent<TextMeshProUGUI>();
             _text.fontSize = 16;
-            _text.font = Plugin.GetFont("ChevyRay - Bird Seed SDF.lfs");
+            _text.font = Utility.GetFont("ChevyRay - Bird Seed SDF.lfs");
         }
 
         public Color GetColor()
