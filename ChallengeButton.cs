@@ -14,6 +14,7 @@ namespace CustomChallenges
         protected TextMeshProUGUI _text;
         protected Button _button;
         protected Challenge _challenge;
+        protected RectTransform _rect;
 
         public virtual void Start()
         {
@@ -25,14 +26,20 @@ namespace CustomChallenges
             }
 
             _text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+
+            _rect = _text.transform as RectTransform;
+
+            _rect.sizeDelta = new Vector2(175, 24);
+
             _button = gameObject.GetComponent<Button>();
             _button.onClick.AddListener(() => OnClick());
             _text.text = _challenge.Name;
+            _text.enableWordWrapping = false;
 
             if ( _challenge.ContainsKey(Properties.LOCALIZATION_NAME) || (_challenge.TryGetEntry<bool>(Properties.USE_EXTERNAL_LOCALIZATION, out bool external) && external))
             {
                 Localize localize = _text.gameObject.AddComponent<Localize>();
-                localize.SetTerm($"Challenges/{_challenge.Id}_name");
+                localize.SetTerm($"Challenges/{_challenge.Id}_name", "Assets/Silver SDF-lfs");
             }
 
             bool allowCruciball = _challenge.TryGetEntry<bool>(Properties.ALLOW_CRUCIBALL, out bool cruciball) && cruciball;
@@ -53,6 +60,18 @@ namespace CustomChallenges
                 ButtonHandleHover hover = GetComponent<ButtonHandleHover>();
                 if(hover != null)
                     hover._origTextColor = Color.yellow;
+            }
+        }
+
+        private const float MAX_WIDTH = 200;
+
+        public void Update()
+        {
+            if(_rect != null)
+            {
+                float width = _text.GetPreferredValues().x;
+                float targetWidth = Mathf.Clamp(width, 20, MAX_WIDTH);
+                _rect.offsetMax = new Vector2(_rect.offsetMin.x + targetWidth, _rect.offsetMax.y) ;
             }
         }
 

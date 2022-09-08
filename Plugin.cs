@@ -30,7 +30,7 @@ namespace CustomChallenges
     {
         public const String GUID = "com.ruiner.customchallenges";
         public const String Name = "Custom Challenges";
-        public const String Version = "1.1.1";
+        public const String Version = "1.1.2";
 
         private static ConfigEntry<bool> _revealAllChallenges;
         public static bool RevealAllChallenges => _revealAllChallenges.Value;
@@ -57,7 +57,7 @@ namespace CustomChallenges
             LoadSoftDependencies();
         }
 
-        public static TMP_FontAsset GetFont(int i, String path)
+        public static TMP_FontAsset GetFont(String path)
         {
             foreach (LanguageSourceData source in LocalizationManager.Sources)
             {

@@ -34,7 +34,7 @@ namespace CustomChallenges.UI
         {
             _text = gameObject.GetComponent<TextMeshProUGUI>();
             _text.fontSize = 16;
-            _text.font = Plugin.GetFont(0, "ChevyRay - Bird Seed SDF.lfs");
+            _text.font = Plugin.GetFont("ChevyRay - Bird Seed SDF.lfs");
         }
 
         public Color GetColor()

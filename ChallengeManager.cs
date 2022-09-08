@@ -353,10 +353,12 @@ namespace CustomChallenges
                 Destroy(child.gameObject);
             }
 
-            VerticalLayoutGroup vlg = buttonContainer.GetComponent<VerticalLayoutGroup>();
-            vlg.spacing = 20;
-            vlg.padding = new RectOffset(0, 0, 25, 0);
-            vlg.childAlignment = TextAnchor.MiddleCenter;
+            DestroyImmediate(buttonContainer.GetComponent<VerticalLayoutGroup>());
+
+            GridLayoutGroup glg = buttonContainer.AddComponent<GridLayoutGroup>();
+            glg.cellSize = new Vector2(200, 25);
+            glg.padding = new RectOffset(40, 0, 10, 0);
+            glg.childAlignment = TextAnchor.UpperLeft;
 
             GameObject prefab = null;
             foreach(Challenge data in Challenge.GetSortedChallenges())
@@ -380,9 +382,7 @@ namespace CustomChallenges
                 {
                     prefab = new GameObject("ChallengeButton");
                     prefab.AddComponent<LayoutElement>();
-                    ContentSizeFitter fitter = prefab.AddComponent<ContentSizeFitter>();
-                    fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-                    fitter.horizontalFit = ContentSizeFitter.FitMode.MinSize;
+
                     ButtonHandleHover hover = prefab.AddComponent<ButtonHandleHover>();
                     hover._origTextColor = Color.white;
                     hover.swapColor = Color.green;
@@ -395,6 +395,7 @@ namespace CustomChallenges
                     TextMeshProUGUI textMesh = text.AddComponent<TextMeshProUGUI>();
 
                     textMesh.fontSize = 24;
+                    textMesh.verticalAlignment = VerticalAlignmentOptions.Capline;
                     prefab.transform.SetParent(buttonContainer.transform);
                     prefab.transform.localPosition = new Vector3(0, 0, 0);
                     prefab.transform.localScale = new Vector3(1, 1, 1);
