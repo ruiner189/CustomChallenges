@@ -11,7 +11,7 @@
        },
       "localizationDescription": {
          "English": "Dead Orbs = Dead Enemies",
-         "简体中文": "<sprite name="PEG_CLEARED">  才是你的帮手。"
+         "简体中文": "<sprite name=\"PEG_CLEARED\">  才是你的帮手。"
        },
       "preventPegMinigame": true,
       "whitelistOrbs": [
