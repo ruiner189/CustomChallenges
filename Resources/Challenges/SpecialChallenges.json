@@ -93,17 +93,13 @@
        },
       "preventNewOrbs": true,
       "preventPegMinigame": true,
-      "blacklistScenarios": [
-        "BrambleTree",
-        "OrbeliskMapData",
-        "Thunderstorm",
-        "Inferno",
-        "CrowClearing",
-        "OldBrickSlime",
-        "MirrorRemove",
-        "DuplicationAltar",
-        "MysteriousAltarOffer",
-        "MinecartMapData"
+      "whitelistScenarios": [
+        "HealingTreeScenario",
+        "Gambler",
+        "WaterfallMapData",
+        "PeglinChef",
+        "SecretTunnelMapData",
+        "VampireScenarioMapData"
       ],
       "blacklistRelics": [
         "ADD_ORBS_AND_UPGRADE"
