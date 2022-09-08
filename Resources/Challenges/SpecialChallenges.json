@@ -5,6 +5,14 @@
       "name": "Health Crisis",
       "description": "You have fallen sick and the dragons have the only cure! Hurry and reach them, as you grow weaker with every hit",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Health Crisis",
+         "简体中文": "生命危机"
+       },
+      "localizationDescription": {
+         "English": "You have fallen sick and the dragons have the only cure! Hurry and reach them, as you grow weaker with every hit",
+         "简体中文": "小心！那些敌人的攻击比你想象的要厉害，受到那些攻击会永久变弱。"
+       },
       "permanentDamage": true
     },
     {
@@ -12,6 +20,14 @@
       "name": "Iron Blood",
       "description": "The slightest touch could kill you. The journey will be long, but your condition allows you to survive even the most deadliest of scenarios.",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Iron Blood",
+         "简体中文": "纸血柔情"
+       },
+      "localizationDescription": {
+         "English": "The slightest touch could kill you. The journey will be long, but your condition allows you to survive even the most deadliest of scenarios.",
+         "简体中文": "敌人最微小的攻击都能杀害你，但是你却感化了危险的事件。你的这场旅程将会漫长而艰辛。"
+       },
       "maxHealth": 1,
       "enemyHealthMultiplier": 0.5,
       "immuneScenarioDamage": true,
@@ -46,6 +62,14 @@
       "name": "Trophy Collector",
       "description": "How many trophies can you collect?",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Trophy Collector",
+         "简体中文": "奖杯爱好者"
+       },
+      "localizationDescription": {
+         "English": "How many trophies can you collect?",
+         "简体中文": "这个把所有遗物替换为奖杯的世界，正适合你这样的人。"
+       },
       "skipStartingRelic": true,
       "whitelistRelics": [],
       "blacklistScenarios": [
@@ -59,6 +83,14 @@
       "name": "Relic Specialist",
       "description": "You can no longer get any orbs",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Relic Specialist",
+         "简体中文": "遗物大师"
+       },
+      "localizationDescription": {
+         "English": "You can no longer get any orbs",
+         "简体中文": "这次没有了弹珠的供给，你能真正发挥遗物的力量吗？"
+       },
       "preventNewOrbs": true,
       "preventPegMinigame": true,
       "blacklistScenarios": [
@@ -82,6 +114,14 @@
       "name": "Purist",
       "description": "You only have what you start with. How far can you go?",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Purist",
+         "简体中文": "开局即一切"
+       },
+      "localizationDescription": {
+         "English": "You only have what you start with. How far can you go?",
+         "简体中文": "你只有你开局获得的东西。你能走多远？"
+       },
       "requiredChallenges": [
         "onlyOrbs",
         "onlyRelics"
@@ -97,6 +137,14 @@
       "name": "Enraged Enemies",
       "description": "Enemies deal more damage the more you hit them.",
       "author": "Coccolithophor#6083",
+      "localizationName": {
+         "English": "Enraged Enemies",
+         "简体中文": "愤怒的敌人"
+       },
+      "localizationDescription": {
+         "English": "Enemies deal more damage the more you hit them.",
+         "简体中文": "敌人在一次受到大量的伤害后，会增强自己的力量。"
+       },
       "enrageThreshold": 10,
       "enrageAmount": 1
     },
@@ -105,6 +153,14 @@
       "name": "Time Trial I",
       "description": "You have 2 minutes and 30 seconds per battle. Can you survive?",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Time Trial I",
+         "简体中文": "时间试炼 I"
+       },
+      "localizationDescription": {
+         "English": "You have 2 minutes and 30 seconds per battle. Can you survive?",
+         "简体中文": "每场战斗你只有两分半的时间。你能活下去吗？"
+       },
       "winConditions": {
         "battleTimeLimit": 150
       }
@@ -117,6 +173,14 @@
       "name": "Time Trial II",
       "description": "You have 25 minutes for all battles. Good luck!",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Time Trial II",
+         "简体中文": "时间试炼 II"
+       },
+      "localizationDescription": {
+         "English": "You have 25 minutes for all battles. Good luck!",
+         "简体中文": "你一共只有25分钟打过所有战斗。祝你好运！"
+       },
       "winConditions": {
         "globalTimeLimit": 1500
       }
@@ -126,6 +190,14 @@
       "name": "Time Trial III",
       "description": "You Have 2 minutes per battle and a total of 20 minutes for all battles. Only the speediest can complete this challenge",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Time Trial III",
+         "简体中文": "时间试炼 III"
+       },
+      "localizationDescription": {
+         "English": "You Have 2 minutes per battle and a total of 20 minutes for all battles. Only the speediest can complete this challenge",
+         "简体中文": "你一共只有20分钟打过所有战斗，而且每场战斗只有2分钟。据说只有最快的哥布林才能通过试炼。"
+       },
       "requiredChallenges": [
         "timeAttackI",
         "timeAttackII"
@@ -140,6 +212,14 @@
       "name": "Pacifist",
       "description": "You are not allowed to kill. Destroy the board to show your dedication.",
       "author": "Ruiner",
+      "localizationName": {
+         "English": "Pacifist",
+         "简体中文": "和平主义者"
+       },
+      "localizationDescription": {
+         "English": "You are not allowed to kill. Destroy the board to show your dedication.",
+         "简体中文": "你不会攻击敌人，尝试摧毁板面中所有的钉子吧！"
+       },
       "orbDestroysPeg": true,
       "startingOrbs": [
         "Ohmygorb-Lvl1",
