@@ -177,9 +177,6 @@ namespace CustomChallenges
             {
                 Instance?.LoadMainMenuButton();
                 Instance?.FixPlayButton();
-            } else if (sceneName == SceneLoader.PostMainMenu)
-            {
-                Instance?.ApplyCruciball();
             } else if (sceneName == SceneLoader.FinalWinScene)
             {
                 Instance?.SaveChallengeVictory();
@@ -244,9 +241,8 @@ namespace CustomChallenges
             }
         }
 
-        private void ApplyCruciball()
+        public void ApplyCruciball(CruciballManager cruciballManager)
         {
-            CruciballManager cruciballManager = Resources.FindObjectsOfTypeAll<CruciballManager>().FirstOrDefault();
             _currentCruciballLevel = cruciballManager.currentCruciballLevel;
 
             if (ChallengeActive)
@@ -255,11 +251,12 @@ namespace CustomChallenges
                 {
                     if (cruciball.TryGetEntry<bool>(Properties.OVERWRITE_CRUCIBALL_LEVELS, out bool overwriteCruciball) && overwriteCruciball)
                     {
-                        if(cruciballManager != null)
-                        {
-                            cruciballManager.currentCruciballLevel = -1;
-                        }
+                        cruciballManager.currentCruciballLevel = -1;
                     }
+                }
+                if (CurrentChallenge.TryGetEntry<int>(Properties.FORCE_CRUCIBALL_LEVEL, out int cruciballLevel))
+                {
+                    cruciballManager.currentCruciballLevel = cruciballLevel;
                 }
             }
         }

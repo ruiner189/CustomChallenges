@@ -30,7 +30,7 @@ namespace CustomChallenges
     {
         public const String GUID = "com.ruiner.customchallenges";
         public const String Name = "Custom Challenges";
-        public const String Version = "1.1.2";
+        public const String Version = "1.2.0";
 
         private static ConfigEntry<bool> _revealAllChallenges;
         public static bool RevealAllChallenges => _revealAllChallenges.Value;

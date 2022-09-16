@@ -40,6 +40,8 @@ namespace CustomChallenges.Patches
                     ChallengeManager.CurrentChallenge = challenge;
                 }
 
+                ChallengeManager.Instance.ApplyCruciball(__instance._cruciballManager);
+
                 if (__instance.LoadData.NewGame)
                 {
                     if (challenge.TryGetEntryArray<string>(Properties.STARTING_ORBS, out String[] startingOrbs))

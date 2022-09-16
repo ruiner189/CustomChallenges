@@ -6,13 +6,13 @@
       "description": "Peglin forgot how to aim! Be careful on where you shoot!",
       "author": "Ruiner",
       "localizationName": {
-         "English": "Unguided Path",
-         "简体中文": "路径无引导"
-       },
+        "English": "Unguided Path",
+        "简体中文": "路径无引导"
+      },
       "localizationDescription": {
-         "English": "Peglin forgot how to aim! Be careful on where you shoot!",
-         "简体中文": "哥布林忘记了如何瞄准！注意你射击的位置！"
-       },
+        "English": "Peglin forgot how to aim! Be careful on where you shoot!",
+        "简体中文": "哥布林忘记了如何瞄准！注意你射击的位置！"
+      },
       "useExternalLocalization": true,
       "predictionBounces": 0,
       "blacklistRelics": [
@@ -29,13 +29,13 @@
       ],
       "author": "Ruiner",
       "localizationName": {
-         "English": "360 No-scope",
-         "简体中文": "角度无引导"
-       },
+        "English": "360 No-scope",
+        "简体中文": "角度无引导"
+      },
       "localizationDescription": {
-         "English": "Peglin can't aim and is dizzy. Watch your head! Those orbs are flying everywhere.",
-         "简体中文": "哥布林不会瞄准而且头还晕晕的。小心你的头！这些弹珠在到处乱飞。"
-       },
+        "English": "Peglin can't aim and is dizzy. Watch your head! Those orbs are flying everywhere.",
+        "简体中文": "哥布林不会瞄准而且头还晕晕的。小心你的头！这些弹珠在到处乱飞。"
+      },
       "predictionBounces": 0,
       "blacklistRelics": [
         "LONGER_AIMER"
@@ -51,13 +51,13 @@
       "description": "Those dragons are at it again! This time they took all your refresh pegs. Good thing you have a refresh orb!",
       "author": "Ruiner",
       "localizationName": {
-         "English": "Refreshing Change",
-         "简体中文": "手中的刷新钉"
-       },
+        "English": "Refreshing Change",
+        "简体中文": "手中的刷新钉"
+      },
       "localizationDescription": {
-         "English": "Those dragons are at it again! This time they took all your refresh pegs. Good thing you have a refresh orb!",
-         "简体中文": "怪物又在破坏板面了！这次他们破坏了所有的刷新钉，还好你收集了一些碎片并合成了一个刷新弹珠！"
-       },
+        "English": "Those dragons are at it again! This time they took all your refresh pegs. Good thing you have a refresh orb!",
+        "简体中文": "怪物又在破坏板面了！这次他们破坏了所有的刷新钉，还好你收集了一些碎片并合成了一个刷新弹珠！"
+      },
       "startingRefreshes": -100,
       "startingOrbs": [
         "StoneOrb-Lvl1",
@@ -82,13 +82,13 @@
       "description": "You lost your refresh pegs again. Channel the dead to refresh again.",
       "author": "Ruiner",
       "localizationName": {
-         "English": "Necro Refresher",
-         "简体中文": "死神的刷新钉"
-       },
+        "English": "Necro Refresher",
+        "简体中文": "死神的刷新钉"
+      },
       "localizationDescription": {
-         "English": "You lost your refresh pegs again. Channel the dead to refresh again.",
-         "简体中文": "这次怪物把了所有的刷新钉供奉给了死神。你只有帮死神收人头才有机会让死神帮你刷新。"
-       },
+        "English": "You lost your refresh pegs again. Channel the dead to refresh again.",
+        "简体中文": "这次怪物把了所有的刷新钉供奉给了死神。你只有帮死神收人头才有机会让死神帮你刷新。"
+      },
       "requiredChallenges": [
         "refreshless"
       ],
@@ -112,36 +112,42 @@
     },
     {
       "id": "shortcut",
-      "description": "You find a hidden tunnel at the entrance to the forest. It seems safe...",
+      "description": "Haglin offers you a shortcut to the castle. Do you take it?",
       "name": "Inconsequential Shortcut",
       "author": "Coccolithophor#6083",
       "localizationName": {
-         "English": "Inconsequential Shortcut",
-         "简体中文": "快速通道"
-       },
+        "English": "Inconsequential Shortcut",
+        "简体中文": "快速通道"
+      },
       "localizationDescription": {
-         "English": "You find a hidden tunnel at the entrance to the forest. It seems safe...",
-         "简体中文": "你在森林的入口看到了一个隐蔽的隧道，隧道通向一个高大的建筑物。你感觉那头不是很危险，便进入了隧道..."
-       },
+        "English": "Haglin offers you a shortcut to the castle. Do you take it?",
+        "简体中文": "你在森林的入口看到了一个隐蔽的隧道，隧道通向一个高大的建筑物。你感觉那头不是很危险，便进入了隧道..."
+      },
+      "startingRelics": [
+        "ADDITIONAL_ORB_RELIC_OPTIONS"
+      ],
       "startingAct": 2,
       "allowCruciball": true
     },
     {
       "id": "shortcutII",
-      "description": "As you prepare to enter the forest, you notice a sealed hole in the ground. Do you dare enter?",
+      "description": "As you start another journey into the forest, you notice another entrance to the mines. Do you enter and catch the enemies unprepared?",
       "requiredChallenges": [
         "shortcut"
       ],
       "name": "Consequential Shortcut",
       "author": "Coccolithophor#6083",
       "localizationName": {
-         "English": "Consequential Shortcut",
-         "简体中文": "高速通道"
-       },
+        "English": "Consequential Shortcut",
+        "简体中文": "高速通道"
+      },
       "localizationDescription": {
-         "English": "As you prepare to enter the forest, you notice a sealed hole in the ground. Do you dare enter?",
-         "简体中文": "你在进入森林时注意到一个密封的地洞，地洞通往地下。你感觉地洞中充满了杀气，但还是鼓足勇气进去了！"
-       },
+        "English": "As you start another journey into the forest, you notice another entrance to the mines. Do you enter and catch the enemies unprepared?",
+        "简体中文": "你在进入森林时注意到一个密封的地洞，地洞通往地下。你感觉地洞中充满了杀气，但还是鼓足勇气进去了！"
+      },
+      "startingRelics": [
+        "ADDITIONAL_ORB_RELIC_OPTIONS"
+      ],
       "startingAct": 3,
       "enemyHealthMultiplier": 0.5,
       "allowCruciball": true
@@ -152,15 +158,26 @@
       "description": "It's raining elites! Run while you can!",
       "author": "Ruiner",
       "localizationName": {
-         "English": "Elitist",
-         "简体中文": "精英化"
-       },
+        "English": "Elitist",
+        "简体中文": "精英化"
+      },
       "localizationDescription": {
-         "English": "It's raining elites! Run while you can!",
-         "简体中文": "冒险之路中充满了精英！尽你所能的活下去吧！"
-       },
+        "English": "It's raining elites! Run while you can!",
+        "简体中文": "冒险之路中充满了精英！尽你所能的活下去吧！"
+      },
       "battleToEliteConversionChance": 1.0,
       "allowCruciball": true
+    },
+    {
+      "id": "kleptomania",
+      "name": "Kleptomania",
+      "description": "Every good peglin knows that more shiny objects is good.",
+      "forcePostBattlePick": true,
+      "forceTreasurePick": true,
+      "startingRelics": [
+        "ADDITIONAL_ORB_RELIC_OPTIONS"
+      ],
+      "allowCruciball":  true
     }
   ]
 }

@@ -44,6 +44,8 @@ namespace CustomChallenges
         public const String PLAYER_DAMAGE_MULTIPLIER = "playerDamageMultiplier";
         public const String BOMB_DAMAGE_MULTIPLIER = "bombDamageMultiplier";
         public const String ORB_DESTROYS_PEG = "orbDestroysPeg";
+        public const String FORCE_POST_BATTLE_PICK = "forcePostBattlePick";
+        public const String FORCE_TREASURE_PICK = "forceTreasurePick";
 
         // Win Conditions
         public const String WIN_CONDITIONS = "winConditions";
@@ -62,6 +64,7 @@ namespace CustomChallenges
         // Cruciball
         public const String CRUCIBALL = "cruciball";
         public const String CRUCIBALL_DESCRIPTIONS = "cruciballDescriptions";
+        public const String FORCE_CRUCIBALL_LEVEL = "forceCruciballLevel"; // Vanilla cruciball only. Allows custom and normal cruciball to coexist.
         public const String MAX_CRUCIBALL_LEVEL = "maxCruciballLevel";
         public const String STARTING_CRUCIBALL_LEVEL = "startingCruciballLevel";
         public const String OVERWRITE_CRUCIBALL_LEVELS = "overwriteCruciballLevels";
