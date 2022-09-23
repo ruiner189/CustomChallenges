@@ -127,6 +127,7 @@
         "ADDITIONAL_ORB_RELIC_OPTIONS"
       ],
       "startingAct": 2,
+      "startingRelicRarity":  "Boss",
       "allowCruciball": true
     },
     {
@@ -149,7 +150,12 @@
         "ADDITIONAL_ORB_RELIC_OPTIONS"
       ],
       "startingAct": 3,
-      "enemyHealthMultiplier": 0.5,
+      "startingRelicRarity": [
+        "Boss",
+        "Rare",
+        "Common"
+      ],
+      "startingRelicAmount": 3,
       "allowCruciball": true
     },
     {

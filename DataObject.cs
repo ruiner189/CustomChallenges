@@ -74,6 +74,13 @@ namespace CustomChallenges
             return _data.GetValueOrDefault(key);
         }
 
+        public bool IsArray(String key)
+        {
+            if (TryGetEntry(key, out object result) && result != null && result.GetType().IsArray)
+                return true;
+            return false;
+        }
+
         public bool TryGetNestedEntry<T>(out T result, params String[] keys)
         {
             DataObject currentObject = this;

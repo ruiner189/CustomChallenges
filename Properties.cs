@@ -23,6 +23,8 @@ namespace CustomChallenges
         public const String STARTING_ORBS = "startingOrbs";
         public const String STARTING_RELICS = "startingRelics";
         public const String SKIP_STARTING_RELIC = "skipStartingRelic";
+        public const String STARTING_RELIC_RARITY = "startingRelicRarity";
+        public const String STARTING_RELIC_AMOUNT = "startingRelicAmount";
         public const String FULL_HEAL_AT_END_OF_BATTLE = "fullHealAtEndOfBattle";
         public const String MAX_HEALTH = "maxHealth";
         public const String PERMANENT_DAMAGE = "permanentDamage";
@@ -35,6 +37,7 @@ namespace CustomChallenges
         public const String PREVENT_NEW_ORBS = "preventNewOrbs";
         public const String PREVENT_ORB_UPGRADES = "preventOrbUpgrades";
         public const String PREVENT_PEG_MINIGAME = "preventPegMinigame";
+        public const String PREVENT_NEW_RELICS = "preventNewRelics"; // Occurs after starting relic. Combine with skipStartingRelic to remove all relics.
         public const String RIGGED_BOMB_SELF_DAMAGE = "riggedBombSelfDamage";
         public const String STARTING_ACT = "startingAct";
         public const String BATTLE_TO_ELITE_CONVERSION_CHANCE = "battleToEliteConversionChance";
