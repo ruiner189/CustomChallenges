@@ -201,56 +201,82 @@ namespace CustomChallenges.Patches
                 if (ChallengeManager.ChallengeActive && __instance.LoadData.NewGame)
                 {
                     Challenge challenge = ChallengeManager.CurrentChallenge;
-
-                    if(challenge.TryGetEntry<int>(Properties.STARTING_RELIC_AMOUNT, out int amountOfRelics))
+                    Relic chosenRelic = __instance._chosenRelics[chosenIndex];
+                    if (AddAnotherRelic(__instance))
                     {
-                        if(chosenRelics < amountOfRelics - 1)
-                        {
-                            chosenRelics++;
-                            RelicIcon.HideTooltip(false);
-                            __instance._relicManager.AddRelic(__instance._chosenRelics[chosenIndex]);
-
-
-                            RelicRarity rarity = RelicRarity.COMMON;
-
-                            if (challenge.ContainsKey(Properties.STARTING_RELIC_RARITY))
-                            {
-                                String rarityString;
-                                if (challenge.IsArray(Properties.STARTING_RELIC_RARITY))
-                                {
-                                    String[] rarities = challenge.GetEntryArray<String>(Properties.STARTING_RELIC_RARITY);
-                                    int index = Math.Min(chosenRelics, rarities.Length - 1);
-                                    rarityString = rarities[index];
-
-                                } else
-                                {
-                                    rarityString = challenge.GetEntry<String>(Properties.STARTING_RELIC_RARITY);
-                                }
-
-                                try
-                                {
-                                     rarity = (RelicRarity)Enum.Parse(typeof(RelicRarity), rarityString.ToUpper());
-
-                                }
-                                catch (Exception e)
-                                {
-                                    Plugin.Log.LogError(e.StackTrace);
-                                }
-
-                            }
-                            __instance._chosenRelics = new List<Relic>(__instance._relicManager.GetMultipleRelicsOfRarity(3, rarity, true));
-                            for (int k = 0; k < __instance._chosenRelics.Count; k++)
-                            {
-                                __instance._chooseRelicIcons[k].SetRelic(__instance._chosenRelics[k]);
-                            }
-
-                            return false;
-                        }
+                        __instance._relicManager.AddRelic(chosenRelic);
+                        return false;
                     }
                 }
 
                 return true;
             }
+        }
+
+        [HarmonyPatch(typeof(GameInit), nameof(GameInit.SkipRelic))]
+        public static class SkipMultipleRelics
+        {
+            public static bool Prefix(GameInit __instance)
+            {
+                if (ChallengeManager.ChallengeActive)
+                {
+                    return !AddAnotherRelic(__instance);
+                }
+
+                return true;
+            }
+        }
+
+        
+        public static bool AddAnotherRelic(GameInit __instance)
+        {
+            Challenge challenge = ChallengeManager.CurrentChallenge;
+            if (challenge.TryGetEntry<int>(Properties.STARTING_RELIC_AMOUNT, out int amountOfRelics))
+            {
+                if (chosenRelics < amountOfRelics - 1)
+                {
+                    chosenRelics++;
+                    RelicIcon.HideTooltip(false);
+
+                    RelicRarity rarity = RelicRarity.COMMON;
+
+                    if (challenge.ContainsKey(Properties.STARTING_RELIC_RARITY))
+                    {
+                        String rarityString;
+                        if (challenge.IsArray(Properties.STARTING_RELIC_RARITY))
+                        {
+                            String[] rarities = challenge.GetEntryArray<String>(Properties.STARTING_RELIC_RARITY);
+                            int index = Math.Min(chosenRelics, rarities.Length - 1);
+                            rarityString = rarities[index];
+
+                        }
+                        else
+                        {
+                            rarityString = challenge.GetEntry<String>(Properties.STARTING_RELIC_RARITY);
+                        }
+
+                        try
+                        {
+                            rarity = (RelicRarity)Enum.Parse(typeof(RelicRarity), rarityString.ToUpper());
+
+                        }
+                        catch (Exception e)
+                        {
+                            Plugin.Log.LogError(e.StackTrace);
+                        }
+
+                    }
+                    __instance._chosenRelics = new List<Relic>(__instance._relicManager.GetMultipleRelicsOfRarity(3, rarity, true));
+                    for (int k = 0; k < __instance._chosenRelics.Count; k++)
+                    {
+                        __instance._chooseRelicIcons[k].SetRelic(__instance._chosenRelics[k]);
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         [HarmonyPatch(typeof(GameInit), nameof(GameInit.LoadMapScene))]
