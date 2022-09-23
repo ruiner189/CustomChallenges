@@ -21,6 +21,16 @@ Bug reports should be made on github! Just follow this link to get started: http
 
 ## Changelog
 <details>
+  <summary> v1.2.0 </summary>
+
+* Added new Challenge: Kleptomania
+* Added new Challenge: Time Attack IV
+* Added new challenge properties: startingRelicRarity, startingRelicAmount, forcePostBattlePick, forceTreasurePick, forceCruciballLevel
+* Inconsequential Shortcut now starts with Eye of Turtle and a boss relic
+* Consequential Shortcut now starts with Eye of Turtle, a boss relic, a rare relic, and a common relic. Enemy health increased from 0.5x to 1.0x
+</details>
+
+<details>
   <summary> v1.1.2 </summary>
 
 * Fixed scenario issues with some challenges
