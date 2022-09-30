@@ -21,6 +21,12 @@ Bug reports should be made on github! Just follow this link to get started: http
 
 ## Changelog
 <details>
+  <summary> v1.2.1 </summary>
+
+* Fixed orbs not being reset when leaving a challenge.
+* Fixed no orbs being available when playing a game.
+</details>
+<details>
   <summary> v1.2.0 </summary>
 
 * Added new Challenge: Kleptomania
