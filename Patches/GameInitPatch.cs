@@ -1,6 +1,8 @@
 ﻿using Battle.Attacks;
 using CustomChallenges.Extensions;
 using HarmonyLib;
+using ProLib.Attributes;
+using ProLib.Loaders;
 using Relics;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using UnityEngine.SceneManagement;
 
 namespace CustomChallenges.Patches
 {
+    [SceneModifier]
     public static class GameInitPatch
     {
         private static List<Relic> _commonRelicPool;
@@ -19,6 +22,7 @@ namespace CustomChallenges.Patches
         private static List<Relic> _bossRelicPool;
 
         private static OrbPool _gameOrbPool;
+        private static List<GameObject> _availableOrbs;
 
         private static int chosenRelics = 0;
 
@@ -342,10 +346,30 @@ namespace CustomChallenges.Patches
 
         private static void CopyOrbPool()
         {
+            if (_gameOrbPool != null) return;
+
             OrbPool[] pools = Resources.FindObjectsOfTypeAll<OrbPool>();
-            if (pools.Length >= 1)
+
+            foreach(OrbPool pool in pools)
             {
-                _gameOrbPool = pools[0];
+                if(pool.name == "AvailableOrbs")
+                {
+                    _gameOrbPool = pools[0];
+                    _availableOrbs = _gameOrbPool.AvailableOrbs.ToList();
+                    break;
+                }
+            }
+        }
+
+
+        public static void OnSceneLoaded(String scene, bool firstLoad)
+        {
+            if(scene == SceneLoader.MainMenu)
+            {
+                if (!firstLoad)
+                {
+                    RevertOrbPool();
+                }
             }
         }
 
@@ -353,7 +377,7 @@ namespace CustomChallenges.Patches
         {
             if(_gameOrbPool != null)
             {
-                _gameOrbPool.AvailableOrbs = _gameOrbPool._availableOrbs.ToArray();
+                _gameOrbPool.AvailableOrbs = _availableOrbs.ToArray();
             }
         }
 
